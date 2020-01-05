@@ -1,8 +1,8 @@
 package com.foxminded.university.schedule;
 
-import com.foxminded.university.entity.Course;
-import com.foxminded.university.entity.Room;
-import com.foxminded.university.entity.TimeUnit;
+import com.foxminded.university.domain.Course;
+import com.foxminded.university.domain.Room;
+import com.foxminded.university.domain.TimeUnit;
 
 public class ScheduleUnit {
     private Course course;

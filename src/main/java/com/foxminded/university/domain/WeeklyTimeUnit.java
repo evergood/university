@@ -1,4 +1,4 @@
-package com.foxminded.university.entity;
+package com.foxminded.university.domain;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
