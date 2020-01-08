@@ -45,9 +45,9 @@ public class Person {
     }
 
     public static class PersonBuilder<SELF extends PersonBuilder<SELF>> {
-        private Integer id;
-        private String firstName;
-        private String lastName;
+        protected Integer id;
+        protected String firstName;
+        protected String lastName;
 
         protected PersonBuilder() {
         }
