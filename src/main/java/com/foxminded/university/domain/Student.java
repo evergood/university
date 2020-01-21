@@ -6,10 +6,22 @@ public class Student extends Person {
         super(personPersonBuilder);
     }
 
+    public static Student.StudentBuilder builder() {
+        return new StudentBuilder();
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
+
     public static final class StudentBuilder extends PersonBuilder<StudentBuilder> {
-        private Integer id;
-        private String firstName;
-        private String lastName;
+
+
 
         private StudentBuilder() {
         }

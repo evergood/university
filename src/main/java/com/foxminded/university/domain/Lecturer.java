@@ -6,10 +6,11 @@ public class Lecturer extends Person {
         super(personPersonBuilder);
     }
 
+    public static LecturerBuilder builder() {
+        return new LecturerBuilder();
+    }
+
     public static final class LecturerBuilder extends PersonBuilder<LecturerBuilder> {
-        private Integer id;
-        private String firstName;
-        private String lastName;
 
         private LecturerBuilder() {
         }
