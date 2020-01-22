@@ -27,3 +27,16 @@ CREATE TABLE weeklytimeunits(
 CREATE TABLE rooms(
 	room_id INT PRIMARY KEY
 );
+CREATE TABLE loginpassword(
+	login VARCHAR(255) PRIMARY KEY,
+	password VARCHAR(255),
+	UNIQUE (login, password)
+);
+CREATE TABLE studentmarks(
+	student_id INT PRIMARY KEY,
+	course VARCHAR(255),
+	mark CHAR,
+	FOREIGN KEY (student_id) REFERENCES students(student_id) ON DELETE CASCADE,
+	FOREIGN KEY (course) REFERENCES courses(course_id) ON DELETE CASCADE,
+	UNIQUE (student_id, course)
+);
