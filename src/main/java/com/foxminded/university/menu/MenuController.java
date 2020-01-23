@@ -15,7 +15,9 @@ public class MenuController {
             "\tB. Find a lecturer by ID\n" +
             "\tC. Add new student\n" +
             "\tD. Delete student by ID\n" +
-            "\tE. Update student's info\n";
+            "\tE. Update student's info\n" +
+            "\tF. Put mark for student\n" +
+            "\tG. View student's marks\n";
 
     private final MenuView view;
     private final AbstractService<Student> studentService;
@@ -44,7 +46,9 @@ public class MenuController {
         view.printText("Input password");
         String password = view.readText();
         boolean isValid = universityService.checkPassword(login, password);
-        isValid ? executeMenu() : {
+        if (isValid) {
+            executeMenu();
+        } else {
             view.printText("Incorrect password");
             executeLogin();
         }
@@ -64,6 +68,10 @@ public class MenuController {
                     deleteStudentById();
                 case 'E':
                     updateStudentInfo();
+                case 'F':
+                    putMark();
+                case 'G':
+                    viewMarks();
                 default:
                     view.printText("Pick an option from the list");
             }
@@ -117,5 +125,21 @@ public class MenuController {
                 .withFirstName(firstName)
                 .withLastName(lastName)
                 .build());
+    }
+
+    public void putMark() {
+        view.printText("Insert student's ID");
+        Integer studentId = view.readDigit();
+        view.printText("Insert course name");
+        Integer courseId = view.readDigit();
+        view.printText("Input mark");
+        Integer mark = view.readDigit();
+        universityService.putMark(studentId, courseId, mark);
+    }
+
+    public void viewMarks() {
+        view.printText("Insert student's ID");
+        Integer studentId = view.readDigit();
+        view.printText(universityService.viewMarks(studentId).toString());
     }
 }
