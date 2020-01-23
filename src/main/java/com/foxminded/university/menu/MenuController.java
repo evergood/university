@@ -1,8 +1,9 @@
 package com.foxminded.university.menu;
 
-import com.foxminded.university.dao.CrudDao;
 import com.foxminded.university.domain.Lecturer;
 import com.foxminded.university.domain.Student;
+import com.foxminded.university.service.AbstractService;
+import com.foxminded.university.service.UniversityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,14 +18,36 @@ public class MenuController {
             "\tE. Update student's info\n";
 
     private final MenuView view;
-    private final CrudDao<Student> studentDao;
-    private final CrudDao<Lecturer> lecturerDao;
+    private final AbstractService<Student> studentService;
+    private final AbstractService<Lecturer> lecturerService;
+    private final UniversityService universityService;
 
     @Autowired
-    public MenuController(MenuView view, CrudDao<Student> studentDao, CrudDao<Lecturer> lecturerDao) {
+    public MenuController(MenuView view, AbstractService<Student> studentService,
+                          AbstractService<Lecturer> lecturerService, UniversityService universityService) {
         this.view = view;
-        this.studentDao = studentDao;
-        this.lecturerDao = lecturerDao;
+        this.studentService = studentService;
+        this.lecturerService = lecturerService;
+        this.universityService = universityService;
+    }
+
+    public void executeLogin() {
+        view.printText("Input login");
+        String login = view.readText();
+        boolean isRegistered = universityService.checkLogin(login);
+        if (isRegistered) {
+            validatePassword(login);
+        }
+    }
+
+    public void validatePassword(String login) {
+        view.printText("Input password");
+        String password = view.readText();
+        boolean isValid = universityService.checkPassword(login, password);
+        isValid ? executeMenu() : {
+            view.printText("Incorrect password");
+            executeLogin();
+        }
     }
 
     public void executeMenu() {
@@ -50,14 +73,14 @@ public class MenuController {
     public void findStudentById() {
         view.printText("Input student ID");
         int id = view.readDigit();
-        Student student = studentDao.getById(id).get();
+        Student student = studentService.getById(id).get();
         view.printText(student.toString());
     }
 
     public void findLecturerById() {
         view.printText("Input lecturer ID");
         int id = view.readDigit();
-        Lecturer lecturer = lecturerDao.getById(id).get();
+        Lecturer lecturer = lecturerService.getById(id).get();
         view.printText(lecturer.toString());
     }
 
@@ -68,7 +91,7 @@ public class MenuController {
         String firstName = view.readText();
         view.printText("Input student's last name");
         String lastName = view.readText();
-        studentDao.create(Student.builder()
+        studentService.create(Student.builder()
                 .withId(id)
                 .withFirstName(firstName)
                 .withLastName(lastName)
@@ -79,7 +102,7 @@ public class MenuController {
     public void deleteStudentById() {
         view.printText("Input student ID");
         int id = view.readDigit();
-        studentDao.delete(Student.builder().withId(id).build());
+        studentService.delete(Student.builder().withId(id).build());
     }
 
     public void updateStudentInfo() {
@@ -89,7 +112,7 @@ public class MenuController {
         String firstName = view.readText();
         view.printText("Input student's last name");
         String lastName = view.readText();
-        studentDao.update(Student.builder()
+        studentService.update(Student.builder()
                 .withId(id)
                 .withFirstName(firstName)
                 .withLastName(lastName)

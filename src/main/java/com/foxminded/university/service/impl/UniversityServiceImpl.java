@@ -21,6 +21,7 @@ public class UniversityServiceImpl implements UniversityService {
     }
 
     private static final String SQL_LOGIN_EXISTS = "SELECT EXISTS (SELECT FROM loginpassword WHERE login = ?)";
+    private static final String SQL_GET_PASSWORD = "SELECT password FROM loginpassword WHERE login = ?)";
     private static final String SQL_SIGN_UP = "INSERT INTO loginpassword (login, password) VALUES(?,?)";
     private static final String SQL_PUT_MARK =
             "INSERT INTO studentmarks (student_id, course_id, mark) VALUES(?,?,?)";
@@ -32,6 +33,12 @@ public class UniversityServiceImpl implements UniversityService {
     @Override
     public boolean checkLogin(String login) {
         return jdbcTemplate.queryForObject(SQL_LOGIN_EXISTS, Boolean.class, login);
+    }
+
+    @Override
+    public boolean checkPassword(String login, String password) {
+        String dbPassword = jdbcTemplate.queryForObject(SQL_GET_PASSWORD, String.class, login);
+        return password.equals(dbPassword);
     }
 
     @Override
