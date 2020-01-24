@@ -2,7 +2,6 @@ package com.foxminded.university.menu;
 
 import com.foxminded.university.domain.Lecturer;
 import com.foxminded.university.domain.Student;
-import com.foxminded.university.service.AbstractService;
 import com.foxminded.university.service.UniversityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -2,7 +2,7 @@ package com.foxminded.university.service;
 
 import java.util.Optional;
 
-public interface Service<T> {
+public interface DaoService<T> {
     Optional<T> getById(Integer id);
 
     boolean delete(T t);

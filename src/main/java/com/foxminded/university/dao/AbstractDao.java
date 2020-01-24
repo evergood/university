@@ -5,7 +5,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.util.Optional;
 
-public abstract class AbstractDao<T> implements CrudDao<T> {
+public abstract class AbstractDao<T, E> implements CrudDao<T> {
 
     private final String sqlFind;
     private final String sqlDelete;
@@ -58,5 +58,5 @@ public abstract class AbstractDao<T> implements CrudDao<T> {
 
     protected abstract Object[] getCreateArgs(T entity);
 
-    protected abstract Integer getExistArgs(T entity);
+    protected abstract E getExistArgs(T entity);
 }

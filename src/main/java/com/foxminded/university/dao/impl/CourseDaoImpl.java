@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.sql.DataSource;
 
 @Repository("courseDao")
-public class CourseDaoImpl extends AbstractDao<Course> implements CourseDao {
+public class CourseDaoImpl extends AbstractDao<Course, Integer> implements CourseDao {
 
     private static final String SQL_FIND_COURSE = "SELECT * FROM courses WHERE course_id = ?";
     private static final String SQL_DELETE_COURSE = "DELETE FROM courses WHERE course_id = ?";

@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 import java.sql.Time;
 
 @Repository("weeklyTimeUnitDao")
-public class WeeklyTimeUnitDaoImpl extends AbstractDao<WeeklyTimeUnit> implements WeeklyTimeUnitDao {
+public class WeeklyTimeUnitDaoImpl extends AbstractDao<WeeklyTimeUnit, Integer> implements WeeklyTimeUnitDao {
 
     private static final String SQL_FIND_WEEKLY_TIME_UNIT = "SELECT * FROM weeklytimeunits WHERE weekly_time_unit_id = ?";
     private static final String SQL_DELETE_WEEKLY_TIME_UNIT = "DELETE FROM weeklytimeunits WHERE weekly_time_unit_id = ?";
