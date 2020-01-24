@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class StudentService implements DaoService<Student> {
+public class StudentServiceImpl implements DaoService<Student, Integer> {
 
-    AbstractDao<Student> studentDao;
+    AbstractDao<Student, Integer> studentDao;
 
     @Autowired
-    public StudentService(AbstractDao<Student> studentDao) {
+    public StudentServiceImpl(AbstractDao<Student, Integer> studentDao) {
         this.studentDao = studentDao;
     }
 

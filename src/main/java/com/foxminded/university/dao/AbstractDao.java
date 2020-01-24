@@ -5,7 +5,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.util.Optional;
 
-public abstract class AbstractDao<T, E> implements CrudDao<T> {
+public abstract class AbstractDao<T, E> implements CrudDao<T, E> {
 
     private final String sqlFind;
     private final String sqlDelete;
@@ -13,7 +13,7 @@ public abstract class AbstractDao<T, E> implements CrudDao<T> {
     private final String sqlInsert;
     private final String sqlExists;
     private final RowMapper<T> mapper;
-    private final JdbcTemplate jdbcTemplate;
+    protected final JdbcTemplate jdbcTemplate;
 
     protected AbstractDao(String sqlFind, String sqlDelete, String sqlUpdate,
                           String sqlInsert, String sqlExists, RowMapper<T> mapper, JdbcTemplate jdbcTemplate) {
@@ -27,7 +27,7 @@ public abstract class AbstractDao<T, E> implements CrudDao<T> {
     }
 
     @Override
-    public Optional<T> getById(Integer id) {
+    public Optional<T> getById(E id) {
         T entity = jdbcTemplate.queryForObject(sqlFind, new Object[]{id}, mapper);
         return Optional.ofNullable(entity);
     }

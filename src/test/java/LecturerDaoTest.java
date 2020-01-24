@@ -16,7 +16,7 @@ public class LecturerDaoTest {
 
     @Autowired
     @Qualifier("lecturerDao")
-    CrudDao<Lecturer> lecturerDao;
+    CrudDao<Lecturer, Integer> lecturerDao;
 
     @Test
     void lecturerDaoShouldInsertLecturer() {

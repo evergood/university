@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class RoomService implements DaoService<Room> {
+public class RoomServiceImpl implements DaoService<Room, Integer> {
 
-    AbstractDao<Room> roomDao;
+    AbstractDao<Room, Integer> roomDao;
 
     @Autowired
-    public RoomService(AbstractDao<Room> roomDao) {
+    public RoomServiceImpl(AbstractDao<Room, Integer> roomDao) {
         this.roomDao = roomDao;
     }
 

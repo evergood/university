@@ -2,12 +2,19 @@ package com.foxminded.university.menu;
 
 import com.foxminded.university.domain.Lecturer;
 import com.foxminded.university.domain.Student;
-import com.foxminded.university.service.UniversityService;
+import com.foxminded.university.domain.User;
+import com.foxminded.university.service.UserService;
+import com.foxminded.university.service.impl.LecturerServiceImpl;
+import com.foxminded.university.service.impl.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MenuController {
+
+    private static final String LOGIN_MENU = "Pick an option\n" +
+            "\tA. Sign in\n" +
+            "\tB. Sign up\n";
 
     private static final String MENU = "Pick an option\n" +
             "\tA. Find a student by ID\n" +
@@ -19,38 +26,49 @@ public class MenuController {
             "\tG. View student's marks\n";
 
     private final MenuView view;
-    private final AbstractService<Student> studentService;
-    private final AbstractService<Lecturer> lecturerService;
-    private final UniversityService universityService;
+    private final StudentServiceImpl studentService;
+    private final LecturerServiceImpl lecturerService;
+    private final UserService userService;
 
     @Autowired
-    public MenuController(MenuView view, AbstractService<Student> studentService,
-                          AbstractService<Lecturer> lecturerService, UniversityService universityService) {
+    public MenuController(MenuView view, StudentServiceImpl studentService,
+                          LecturerServiceImpl lecturerService, UserService userService) {
         this.view = view;
         this.studentService = studentService;
         this.lecturerService = lecturerService;
-        this.universityService = universityService;
+        this.userService = userService;
     }
 
-    public void executeLogin() {
+    public void executeLoginMenu() {
+        view.printText(LOGIN_MENU);
+        switch (view.readOption()) {
+            case 'A':
+                executeSignIn();
+            case 'B':
+                executeSignUp();
+        }
+    }
+
+    public void executeSignIn() {
         view.printText("Input login");
         String login = view.readText();
-        boolean isRegistered = universityService.checkLogin(login);
+        view.printText("Input password");
+        String password = view.readText();
+        boolean isRegistered = userService.signIn(login, password);
         if (isRegistered) {
-            validatePassword(login);
+            executeMenu();
+        } else {
+            view.printText("No such user or incorrect password");
         }
     }
 
-    public void validatePassword(String login) {
+    public void executeSignUp() {
+        view.printText("Input login");
+        String login = view.readText();
         view.printText("Input password");
         String password = view.readText();
-        boolean isValid = universityService.checkPassword(login, password);
-        if (isValid) {
-            executeMenu();
-        } else {
-            view.printText("Incorrect password");
-            executeLogin();
-        }
+        userService.signUp(User.builder().withLogin(login).withPassword(password).build());
+        executeLoginMenu();
     }
 
     public void executeMenu() {
@@ -133,12 +151,12 @@ public class MenuController {
         Integer courseId = view.readDigit();
         view.printText("Input mark");
         Integer mark = view.readDigit();
-        universityService.putMark(studentId, courseId, mark);
+        userService.putMark(studentId, courseId, mark);
     }
 
     public void viewMarks() {
         view.printText("Insert student's ID");
         Integer studentId = view.readDigit();
-        view.printText(universityService.viewMarks(studentId).toString());
+        view.printText(userService.viewMarks(studentId).toString());
     }
 }

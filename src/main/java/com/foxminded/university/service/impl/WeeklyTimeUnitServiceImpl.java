@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class WeeklyTimeUnitService implements DaoService<WeeklyTimeUnit> {
+public class WeeklyTimeUnitServiceImpl implements DaoService<WeeklyTimeUnit, Integer> {
 
-    AbstractDao<WeeklyTimeUnit> weeklyTimeUnitDao;
+    AbstractDao<WeeklyTimeUnit, Integer> weeklyTimeUnitDao;
 
     @Autowired
-    public WeeklyTimeUnitService(AbstractDao<WeeklyTimeUnit> weeklyTimeUnitDao) {
+    public WeeklyTimeUnitServiceImpl(AbstractDao<WeeklyTimeUnit, Integer> weeklyTimeUnitDao) {
         this.weeklyTimeUnitDao = weeklyTimeUnitDao;
     }
 
