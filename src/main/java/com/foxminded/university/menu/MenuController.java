@@ -3,11 +3,14 @@ package com.foxminded.university.menu;
 import com.foxminded.university.domain.Lecturer;
 import com.foxminded.university.domain.Student;
 import com.foxminded.university.domain.User;
-import com.foxminded.university.service.UserService;
 import com.foxminded.university.service.impl.LecturerServiceImpl;
 import com.foxminded.university.service.impl.StudentServiceImpl;
+import com.foxminded.university.service.impl.UserServiceImpl;
+import com.foxminded.university.service.impl.WeeklyTimeUnitServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 @Component
 public class MenuController {
@@ -23,20 +26,26 @@ public class MenuController {
             "\tD. Delete student by ID\n" +
             "\tE. Update student's info\n" +
             "\tF. Put mark for student\n" +
-            "\tG. View student's marks\n";
+            "\tG. View student's marks\n" +
+            "\tH. View student's courses\n" +
+            "\tI. Input student's schedule\n" +
+            "\tJ. View student's schedule\n";
 
     private final MenuView view;
     private final StudentServiceImpl studentService;
     private final LecturerServiceImpl lecturerService;
-    private final UserService userService;
+    private final UserServiceImpl userService;
+    private final WeeklyTimeUnitServiceImpl weeklyTimeUnitService;
 
     @Autowired
     public MenuController(MenuView view, StudentServiceImpl studentService,
-                          LecturerServiceImpl lecturerService, UserService userService) {
+                          LecturerServiceImpl lecturerService, UserServiceImpl userService,
+                          WeeklyTimeUnitServiceImpl weeklyTimeUnitService) {
         this.view = view;
         this.studentService = studentService;
         this.lecturerService = lecturerService;
         this.userService = userService;
+        this.weeklyTimeUnitService = weeklyTimeUnitService;
     }
 
     public void executeLoginMenu() {
@@ -89,6 +98,12 @@ public class MenuController {
                     putMark();
                 case 'G':
                     viewMarks();
+                case 'H':
+                    viewStudentsCourses();
+                case 'I':
+                    inputSchedule();
+                case 'J':
+                    viewStudentSchedule();
                 default:
                     view.printText("Pick an option from the list");
             }
@@ -151,12 +166,44 @@ public class MenuController {
         Integer courseId = view.readDigit();
         view.printText("Input mark");
         Integer mark = view.readDigit();
-        userService.putMark(studentId, courseId, mark);
+        studentService.putMark(studentId, courseId, mark);
     }
 
     public void viewMarks() {
         view.printText("Insert student's ID");
         Integer studentId = view.readDigit();
-        view.printText(userService.viewMarks(studentId).toString());
+        view.printText(studentService.viewMarks(studentId).toString());
+    }
+
+    public void viewStudentsCourses() {
+        view.printText("Insert student's ID");
+        Integer studentId = view.readDigit();
+        view.printText(studentService.viewStudentCourses(studentId).toString());
+    }
+
+    public void inputSchedule() {
+        view.printText("Input student's ID");
+        Integer studentId = view.readDigit();
+        view.printText("Input course name.Press enter to exit");
+        combineSchedule(studentId);
+    }
+
+    public void combineSchedule(Integer studentId) {
+        view.printText("Input course name.Press enter to exit");
+        String courseName = view.readText();
+        while (!courseName.equals("\n")) {
+            view.printText("Input time ID");
+            Integer timeId = view.readDigit();
+            studentService.insertStudentTimeUnit(studentId, courseName, timeId);
+        }
+    }
+
+    public void viewStudentSchedule() {
+        view.printText("Input student's ID");
+        Integer studentId = view.readDigit();
+        Map<String, Integer> coursesTimes = studentService.getStudentSchedule(studentId);
+        for (Map.Entry<String, Integer> entry : coursesTimes.entrySet()) {
+            view.printText(entry.getKey() + " " + weeklyTimeUnitService.getById(entry.getValue()).toString());
+        }
     }
 }

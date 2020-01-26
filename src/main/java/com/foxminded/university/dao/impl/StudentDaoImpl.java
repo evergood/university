@@ -10,7 +10,9 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository("studentDao")
@@ -26,7 +28,13 @@ public class StudentDaoImpl extends AbstractDao<Student, Integer> implements Stu
             "SELECT course_name, mark\n" +
                     "FROM (studentmarks JOIN courses ON studentmarks.course_id = courses.course_id)\n" +
                     "WHERE student_id = ?;";
-
+    private static final String SQL_VIEW_COURSE_STUDENTS = "SELECT course_name" +
+            "FROM (studentcourses JOIN courses ON studentcourses.course_id = courses.course_id)" +
+            "WHERE student_id = ?";
+    private static final String SQL_INSERT_STUDENT_TIMEUNIT = "INSERT INTO studenttimeunits" +
+            "(student_id, course_name, timeunit_id) VALUES(?,?,?)";
+    private static final String SQL_GET_STUDENT_SCHEDULE = "SELECT (course_name, timeunit_id)" +
+            "FROM studenttimeunits WHERE student_id = ?";
 
     @Autowired
     protected StudentDaoImpl(DataSource dataSource) {
@@ -61,13 +69,38 @@ public class StudentDaoImpl extends AbstractDao<Student, Integer> implements Stu
 
     @Override
     public Map<String, Character> viewMarks(Integer studentId) {
-        return jdbcTemplate.query(SQL_VIEW_MARKS, (ResultSetExtractor<Map<String, Character>>) rs -> {
-            HashMap<String, Character> mapResult = new HashMap<>();
+        return jdbcTemplate.query(SQL_VIEW_MARKS, new Object[]{studentId},
+                (ResultSetExtractor<Map<String, Character>>) rs -> {
+                    HashMap<String, Character> mapResult = new HashMap<>();
+                    while (rs.next()) {
+                        mapResult.put(rs.getString("course_name"), rs.getString("mark").charAt(0));
+                    }
+                    return mapResult;
+                });
+    }
+
+    public List<String> viewStudentCourses(Integer course_id) {
+        return jdbcTemplate.query(SQL_VIEW_COURSE_STUDENTS, new Object[]{course_id}, rs -> {
+            List<String> listResult = new ArrayList<>();
             while (rs.next()) {
-                mapResult.put(rs.getString("course_name"), rs.getString ("mark").charAt(0));
+                listResult.add(rs.getString("course_name"));
             }
-            return mapResult;
+            return listResult;
         });
     }
 
+    public boolean insertStudentTimeUnit(Integer studentId, String courseName, Integer timeInitId) {
+        return jdbcTemplate.update(SQL_INSERT_STUDENT_TIMEUNIT, studentId, courseName, timeInitId) > 0;
+    }
+
+    public Map<String, Integer> getStudentSchedule(Integer studentId) {
+        return jdbcTemplate.query(SQL_GET_STUDENT_SCHEDULE, new Object[]{studentId},
+                (ResultSetExtractor<Map<String, Integer>>) rs -> {
+                    HashMap<String, Integer> mapResult = new HashMap<>();
+                    while (rs.next()) {
+                        mapResult.put(rs.getString("course_name"), rs.getInt("timeunit_id"));
+                    }
+                    return mapResult;
+                });
+    }
 }

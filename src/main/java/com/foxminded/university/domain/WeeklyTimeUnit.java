@@ -59,12 +59,9 @@ public class WeeklyTimeUnit {
 
     @Override
     public String toString() {
-        return "WeeklyTimeUnit{" +
-                "id=" + id +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
-                ", dayOfWeek=" + dayOfWeek +
-                '}';
+        return " " + startTime +
+                " - " + endTime +
+                " on " + dayOfWeek;
     }
 
     public static final class Builder {
