@@ -79,6 +79,7 @@ public class StudentDaoImpl extends AbstractDao<Student, Integer> implements Stu
                 });
     }
 
+    @Override
     public List<String> viewStudentCourses(Integer course_id) {
         return jdbcTemplate.query(SQL_VIEW_COURSE_STUDENTS, new Object[]{course_id}, rs -> {
             List<String> listResult = new ArrayList<>();
@@ -89,10 +90,12 @@ public class StudentDaoImpl extends AbstractDao<Student, Integer> implements Stu
         });
     }
 
+    @Override
     public boolean insertStudentTimeUnit(Integer studentId, String courseName, Integer timeInitId) {
         return jdbcTemplate.update(SQL_INSERT_STUDENT_TIMEUNIT, studentId, courseName, timeInitId) > 0;
     }
 
+    @Override
     public Map<String, Integer> getStudentSchedule(Integer studentId) {
         return jdbcTemplate.query(SQL_GET_STUDENT_SCHEDULE, new Object[]{studentId},
                 (ResultSetExtractor<Map<String, Integer>>) rs -> {

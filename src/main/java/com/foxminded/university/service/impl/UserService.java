@@ -1,6 +1,7 @@
 package com.foxminded.university.service.impl;
 
 import com.foxminded.university.dao.AbstractDao;
+import com.foxminded.university.dao.UserDao;
 import com.foxminded.university.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,12 +9,12 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl {
+public class UserService {
 
-    AbstractDao<User, String> userDao;
+    private UserDao userDao;
 
     @Autowired
-    public UserServiceImpl(AbstractDao<User, String> userDao) {
+    public UserService(UserDao userDao) {
         this.userDao = userDao;
     }
 

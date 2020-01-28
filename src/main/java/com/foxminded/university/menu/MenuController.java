@@ -3,10 +3,8 @@ package com.foxminded.university.menu;
 import com.foxminded.university.domain.Lecturer;
 import com.foxminded.university.domain.Student;
 import com.foxminded.university.domain.User;
-import com.foxminded.university.service.impl.LecturerServiceImpl;
-import com.foxminded.university.service.impl.StudentServiceImpl;
-import com.foxminded.university.service.impl.UserServiceImpl;
-import com.foxminded.university.service.impl.WeeklyTimeUnitServiceImpl;
+import com.foxminded.university.service.Validator;
+import com.foxminded.university.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,20 +30,22 @@ public class MenuController {
             "\tJ. View student's schedule\n";
 
     private final MenuView view;
-    private final StudentServiceImpl studentService;
-    private final LecturerServiceImpl lecturerService;
-    private final UserServiceImpl userService;
-    private final WeeklyTimeUnitServiceImpl weeklyTimeUnitService;
+    private final StudentService studentService;
+    private final LecturerService lecturerService;
+    private final UserService userService;
+    private final WeeklyTimeUnitService weeklyTimeUnitService;
+    private final Validator<User> validator;
 
     @Autowired
-    public MenuController(MenuView view, StudentServiceImpl studentService,
-                          LecturerServiceImpl lecturerService, UserServiceImpl userService,
-                          WeeklyTimeUnitServiceImpl weeklyTimeUnitService) {
+    public MenuController(MenuView view, StudentService studentService,
+                          LecturerService lecturerService, UserService userService,
+                          WeeklyTimeUnitService weeklyTimeUnitService, ValidatorImpl validator) {
         this.view = view;
         this.studentService = studentService;
         this.lecturerService = lecturerService;
         this.userService = userService;
         this.weeklyTimeUnitService = weeklyTimeUnitService;
+        this.validator = validator;
     }
 
     public void executeLoginMenu() {
@@ -76,7 +76,9 @@ public class MenuController {
         String login = view.readText();
         view.printText("Input password");
         String password = view.readText();
-        userService.signUp(User.builder().withLogin(login).withPassword(password).build());
+        User user = User.builder().withLogin(login).withPassword(password).build();
+        validator.validate(user);
+        userService.signUp(user);
         executeLoginMenu();
     }
 

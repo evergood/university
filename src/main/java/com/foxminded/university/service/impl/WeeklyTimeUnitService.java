@@ -1,6 +1,7 @@
 package com.foxminded.university.service.impl;
 
 import com.foxminded.university.dao.AbstractDao;
+import com.foxminded.university.dao.WeeklyTimeUnitDao;
 import com.foxminded.university.domain.WeeklyTimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,12 +9,12 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class WeeklyTimeUnitServiceImpl {
+public class WeeklyTimeUnitService {
 
-    AbstractDao<WeeklyTimeUnit, Integer> weeklyTimeUnitDao;
+    private WeeklyTimeUnitDao weeklyTimeUnitDao;
 
     @Autowired
-    public WeeklyTimeUnitServiceImpl(AbstractDao<WeeklyTimeUnit, Integer> weeklyTimeUnitDao) {
+    public WeeklyTimeUnitService(WeeklyTimeUnitDao weeklyTimeUnitDao) {
         this.weeklyTimeUnitDao = weeklyTimeUnitDao;
     }
 

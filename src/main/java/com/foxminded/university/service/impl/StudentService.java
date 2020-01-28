@@ -1,5 +1,6 @@
 package com.foxminded.university.service.impl;
 
+import com.foxminded.university.dao.StudentDao;
 import com.foxminded.university.dao.impl.StudentDaoImpl;
 import com.foxminded.university.domain.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +11,12 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class StudentServiceImpl {
+public class StudentService {
 
-    StudentDaoImpl studentDao;
+    private StudentDao studentDao;
 
     @Autowired
-    public StudentServiceImpl(StudentDaoImpl studentDao) {
+    public StudentService(StudentDao studentDao) {
         this.studentDao = studentDao;
     }
 
