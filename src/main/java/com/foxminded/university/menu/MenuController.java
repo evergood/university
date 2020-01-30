@@ -79,7 +79,7 @@ public class MenuController {
     public void deleteStudentById() {
         view.printText("Input student ID");
         int id = view.readDigit();
-        studentDao.delete(Student.builder().withId(id).build());
+        studentDao.deleteById(Student.builder().withId(id).build());
     }
 
     public void updateStudentInfo() {

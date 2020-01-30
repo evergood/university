@@ -1,5 +1,7 @@
-import com.foxminded.university.domain.Student;
-import com.foxminded.university.domain.StudentMapper;
+package com.foxminded.university.mapper;
+
+import com.foxminded.university.domain.Lecturer;
+import com.foxminded.university.mapper.LecturerMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -10,23 +12,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class StudentMapperTest {
+public class LecturerMapperTest {
 
     private final ResultSet resultSet = mock(ResultSet.class);
-    private final RowMapper<Student> studentMapper = new StudentMapper();
+    private final RowMapper<Lecturer> lecturerMapper = new LecturerMapper();
 
     @Test
-    public void studentMapperShouldReturnStudent() throws SQLException {
-        Student expected = Student.builder()
+    public void lecturerMapperShouldReturnLecturer() throws SQLException {
+        Lecturer expected = Lecturer.builder()
                 .withId(11)
                 .withFirstName("Garry")
                 .withLastName("Cooper")
                 .build();
         when(resultSet.getRow()).thenReturn(1);
-        when(resultSet.getInt("student_id")).thenReturn(11);
+        when(resultSet.getInt("lecturer_id")).thenReturn(11);
         when(resultSet.getString("first_name")).thenReturn("Garry");
         when(resultSet.getString("last_name")).thenReturn("Cooper");
-        Student student = studentMapper.mapRow(resultSet, 1);
-        assertEquals(expected, student);
+        Lecturer lecturer = lecturerMapper.mapRow(resultSet, 1);
+        assertEquals(expected, lecturer);
     }
 }

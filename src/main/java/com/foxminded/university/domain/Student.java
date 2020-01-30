@@ -1,6 +1,10 @@
 package com.foxminded.university.domain;
 
-public class Student extends Person {
+import java.util.List;
+
+public class Student extends User {
+
+    private List<Course> courses;
 
     protected Student(StudentBuilder personPersonBuilder) {
         super(personPersonBuilder);
@@ -13,15 +17,16 @@ public class Student extends Person {
     @Override
     public String toString() {
         return "Student{" +
-                "id=" + id +
+                "courses=" + courses +
+                ", id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
 
-    public static final class StudentBuilder extends PersonBuilder<StudentBuilder> {
+    public static final class StudentBuilder extends UserBuilder<StudentBuilder> {
 
-
+        private List<Course> courses;
 
         private StudentBuilder() {
         }
@@ -39,6 +44,11 @@ public class Student extends Person {
         public StudentBuilder withLastName(String lastName) {
             this.lastName = lastName;
             return this;
+        }
+
+        public StudentBuilder withCourses(List<Course> courses) {
+            this.courses = courses;
+            return self();
         }
 
         public StudentBuilder self() {

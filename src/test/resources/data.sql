@@ -50,3 +50,16 @@ INSERT INTO weeklytimeunits (weekly_time_unit_id, starttime, endtime, weekday) V
 INSERT INTO weeklytimeunits (weekly_time_unit_id, starttime, endtime, weekday) VALUES (13, '10:00', '12:00', 'FRIDAY');
 INSERT INTO weeklytimeunits (weekly_time_unit_id, starttime, endtime, weekday) VALUES (14, '12:00', '14:00', 'FRIDAY');
 INSERT INTO weeklytimeunits (weekly_time_unit_id, starttime, endtime, weekday) VALUES (15, '14:00', '16:00', 'FRIDAY');
+INSERT INTO StudentCourses(student_id, course_id) VALUES (1,  1);
+INSERT INTO StudentCourses(student_id, course_id) VALUES (2,  4);
+INSERT INTO StudentCourses(student_id, course_id) VALUES (3,  7);
+INSERT INTO StudentCourses(student_id, course_id) VALUES (4,  6);
+INSERT INTO StudentCourses(student_id, course_id) VALUES (5,  1);
+INSERT INTO StudentCourses(student_id, course_id) VALUES (5,  3);
+INSERT INTO StudentCourses(student_id, course_id) VALUES (6, 7);
+INSERT INTO StudentCourses(student_id, course_id) VALUES (7,  2);
+INSERT INTO StudentCourses(student_id, course_id) VALUES (8,  7);
+INSERT INTO StudentCourses(student_id, course_id) VALUES (8,  6);
+INSERT INTO StudentCourses(student_id, course_id) VALUES (8,  1);
+INSERT INTO StudentCourses(student_id, course_id) VALUES (9,  2);
+INSERT INTO StudentCourses(student_id, course_id) VALUES (10,  3);

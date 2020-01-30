@@ -1,9 +1,8 @@
 package com.foxminded.university.dao.impl;
 
-import com.foxminded.university.dao.AbstractDao;
 import com.foxminded.university.dao.RoomDao;
 import com.foxminded.university.domain.Room;
-import com.foxminded.university.domain.RoomMapper;
+import com.foxminded.university.mapper.RoomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

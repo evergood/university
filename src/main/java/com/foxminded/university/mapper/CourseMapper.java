@@ -1,5 +1,6 @@
-package com.foxminded.university.domain;
+package com.foxminded.university.mapper;
 
+import com.foxminded.university.domain.Course;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 

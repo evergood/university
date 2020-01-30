@@ -1,14 +1,15 @@
 package com.foxminded.university.dao.impl;
 
-import com.foxminded.university.dao.AbstractDao;
 import com.foxminded.university.dao.StudentDao;
+import com.foxminded.university.domain.Course;
 import com.foxminded.university.domain.Student;
-import com.foxminded.university.domain.StudentMapper;
+import com.foxminded.university.mapper.StudentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 @Repository("studentDao")
 public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
@@ -18,6 +19,11 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
     private static final String SQL_UPDATE_STUDENT = "UPDATE students SET first_name = ?, last_name = ? WHERE student_id = ?";
     private static final String SQL_INSERT_STUDENT = "INSERT INTO students(student_id, first_name, last_name) VALUES(?,?,?)";
     private static final String SQL_STUDENT_EXISTS = "SELECT EXISTS(SELECT FROM students WHERE student_id = ?)";
+    private static final String SQL_GET_STUDENT_COURSES =
+            "SELECT course_name\n" +
+                    "FROM (studentcourses JOIN courses ON studentcourses.course_id = courses.course_id)\n" +
+                    "WHERE student_id = ?;";
+
 
     @Autowired
     protected StudentDaoImpl(DataSource dataSource) {
@@ -43,5 +49,10 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
     @Override
     protected Integer getExistArgs(Student student) {
         return student.getId();
+    }
+
+    @Override
+    public List<Course> getStudentCourses() {
+        return null;
     }
 }

@@ -1,5 +1,6 @@
-package com.foxminded.university.dao;
+package com.foxminded.university.dao.impl;
 
+import com.foxminded.university.dao.CrudDao;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -33,7 +34,7 @@ public abstract class AbstractDao<T> implements CrudDao<T> {
     }
 
     @Override
-    public boolean delete(T entity) {
+    public boolean deleteById(T entity) {
         return jdbcTemplate.update(sqlDelete, getDeleteArgs(entity)) > 0;
     }
 

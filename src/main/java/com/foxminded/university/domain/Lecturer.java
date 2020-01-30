@@ -1,6 +1,8 @@
 package com.foxminded.university.domain;
 
-public class Lecturer extends Person {
+public class Lecturer extends User {
+
+    private String rank;
 
     protected Lecturer(LecturerBuilder personPersonBuilder) {
         super(personPersonBuilder);
@@ -10,7 +12,9 @@ public class Lecturer extends Person {
         return new LecturerBuilder();
     }
 
-    public static final class LecturerBuilder extends PersonBuilder<LecturerBuilder> {
+    public static final class LecturerBuilder extends UserBuilder<LecturerBuilder> {
+
+        private String rank;
 
         private LecturerBuilder() {
         }
@@ -28,6 +32,11 @@ public class Lecturer extends Person {
         public LecturerBuilder withLastName(String lastName) {
             this.lastName = lastName;
             return this;
+        }
+
+        public LecturerBuilder withRank(String rank) {
+            this.rank = rank;
+            return self();
         }
 
         public LecturerBuilder self() {

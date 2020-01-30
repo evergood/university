@@ -1,5 +1,7 @@
+package com.foxminded.university.mapper;
+
 import com.foxminded.university.domain.WeeklyTimeUnit;
-import com.foxminded.university.domain.WeeklyTimeUnitMapper;
+import com.foxminded.university.mapper.WeeklyTimeUnitMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.RowMapper;
 
