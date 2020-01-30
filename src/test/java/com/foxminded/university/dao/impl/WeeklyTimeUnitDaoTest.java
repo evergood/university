@@ -1,3 +1,5 @@
+package com.foxminded.university.dao.impl;
+
 import com.foxminded.university.dao.CrudDao;
 import com.foxminded.university.domain.WeeklyTimeUnit;
 import config.ConfigTest;
@@ -67,7 +69,7 @@ public class WeeklyTimeUnitDaoTest {
                 .withEndTime(LocalTime.of(12, 0))
                 .withDayOfWeek(DayOfWeek.MONDAY)
                 .build();
-        weeklyTimeUnitDao.delete(weeklyTimeUnit);
+        weeklyTimeUnitDao.deleteById(weeklyTimeUnit);
         boolean isExist = weeklyTimeUnitDao.isExist(weeklyTimeUnit);
         assertFalse(isExist);
     }

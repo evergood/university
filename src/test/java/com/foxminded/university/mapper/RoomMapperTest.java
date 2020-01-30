@@ -1,5 +1,7 @@
+package com.foxminded.university.mapper;
+
 import com.foxminded.university.domain.Room;
-import com.foxminded.university.domain.RoomMapper;
+import com.foxminded.university.mapper.RoomMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.RowMapper;
 

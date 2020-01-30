@@ -1,3 +1,5 @@
+package com.foxminded.university.dao.impl;
+
 import com.foxminded.university.dao.CrudDao;
 import com.foxminded.university.domain.Course;
 import config.ConfigTest;
@@ -6,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -45,7 +46,7 @@ public class CourseDaoTest {
     @Test
     void courseDaoShouldDeleteCourse() {
         Course course = new Course(7, "Rocket Science");
-        courseDao.delete(course);
+        courseDao.deleteById(course);
         boolean isExist = courseDao.isExist(course);
         assertFalse(isExist);
     }

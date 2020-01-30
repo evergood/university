@@ -1,5 +1,7 @@
+package com.foxminded.university.mapper;
+
 import com.foxminded.university.domain.Course;
-import com.foxminded.university.domain.CourseMapper;
+import com.foxminded.university.mapper.CourseMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;

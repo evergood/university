@@ -1,3 +1,5 @@
+package com.foxminded.university.dao.impl;
+
 import com.foxminded.university.dao.CrudDao;
 import com.foxminded.university.domain.Student;
 import config.ConfigTest;
@@ -56,7 +58,7 @@ public class StudentDaoTest {
     @Test
     void studentDaoShouldDeleteStudent() {
         Student student = Student.builder().withId(2).build();
-        studentDao.delete(student);
+        studentDao.deleteById(student);
         boolean isExist = studentDao.isExist(student);
         assertFalse(isExist);
     }

@@ -6,7 +6,7 @@ public interface CrudDao<T> {
 
     Optional<T> getById(Integer id);
 
-    boolean delete(T t);
+    boolean deleteById(T t);
 
     boolean update(T t);
 

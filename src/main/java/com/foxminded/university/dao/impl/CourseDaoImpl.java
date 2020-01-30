@@ -1,13 +1,11 @@
 package com.foxminded.university.dao.impl;
 
-import com.foxminded.university.dao.AbstractDao;
 import com.foxminded.university.dao.CourseDao;
 import com.foxminded.university.domain.Course;
-import com.foxminded.university.domain.CourseMapper;
+import com.foxminded.university.mapper.CourseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 

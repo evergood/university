@@ -2,15 +2,15 @@ package com.foxminded.university.domain;
 
 import java.util.Objects;
 
-public class Person {
+public class User {
     protected final Integer id;
     protected final String firstName;
     protected final String lastName;
 
-    protected Person(PersonBuilder<? extends PersonBuilder> personPersonBuilder) {
-        this.id = personPersonBuilder.id;
-        this.firstName = personPersonBuilder.firstName;
-        this.lastName = personPersonBuilder.lastName;
+    protected User(UserBuilder<? extends UserBuilder> userUserBuilder) {
+        this.id = userUserBuilder.id;
+        this.firstName = userUserBuilder.firstName;
+        this.lastName = userUserBuilder.lastName;
     }
 
     public Integer getId() {
@@ -33,10 +33,10 @@ public class Person {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Person person = (Person) o;
-        return Objects.equals(id, person.id) &&
-                Objects.equals(firstName, person.firstName) &&
-                Objects.equals(lastName, person.lastName);
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName);
     }
 
     @Override
@@ -44,12 +44,12 @@ public class Person {
         return Objects.hash(id, firstName, lastName);
     }
 
-    public static class PersonBuilder<SELF extends PersonBuilder<SELF>> {
+    public static class UserBuilder<SELF extends UserBuilder<SELF>> {
         protected Integer id;
         protected String firstName;
         protected String lastName;
 
-        protected PersonBuilder() {
+        protected UserBuilder() {
         }
 
         @SuppressWarnings("unchecked")
@@ -57,8 +57,8 @@ public class Person {
             return (SELF) this;
         }
 
-        public Person build() {
-            return new Person(self());
+        public User build() {
+            return new User(self());
         }
 
         public SELF withId(Integer id) {

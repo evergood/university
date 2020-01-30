@@ -1,3 +1,5 @@
+package com.foxminded.university.dao.impl;
+
 import com.foxminded.university.dao.CrudDao;
 import com.foxminded.university.domain.Room;
 import config.ConfigTest;
@@ -44,7 +46,7 @@ public class RoomDaoTest {
     @Test
     void roomDaoShouldDeleteRoom() {
         Room room = new Room(666);
-        roomDao.delete(room);
+        roomDao.deleteById(room);
         boolean isExist = roomDao.isExist(room);
         assertFalse(isExist);
     }
