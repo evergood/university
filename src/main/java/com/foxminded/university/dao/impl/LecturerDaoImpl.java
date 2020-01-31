@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 
 @Repository("lecturerDao")
-public class LecturerDaoImpl extends AbstractDao<Lecturer> implements LecturerDao {
+public class LecturerDaoImpl extends AbstractDao<Lecturer, Integer> implements LecturerDao {
 
     private static final String SQL_FIND_LECTURER = "SELECT * FROM lecturers WHERE lecturer_id = ?";
     private static final String SQL_DELETE_LECTURER = "DELETE FROM lecturers WHERE lecturer_id = ?";

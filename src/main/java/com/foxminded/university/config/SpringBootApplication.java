@@ -52,6 +52,6 @@ public class SpringBootApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        menuController.executeMenu();
+        menuController.executeLoginMenu();
     }
 }

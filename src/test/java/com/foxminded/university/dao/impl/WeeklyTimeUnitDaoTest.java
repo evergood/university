@@ -21,7 +21,7 @@ public class WeeklyTimeUnitDaoTest {
 
     @Autowired
     @Qualifier("weeklyTimeUnitDao")
-    CrudDao<WeeklyTimeUnit> weeklyTimeUnitDao;
+    CrudDao<WeeklyTimeUnit, Integer> weeklyTimeUnitDao;
 
     @Test
     void weeklyTimeUnitDaoShouldInsertWeeklyTimeUnit() {

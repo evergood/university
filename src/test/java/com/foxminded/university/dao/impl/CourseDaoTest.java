@@ -18,7 +18,7 @@ public class CourseDaoTest {
 
     @Autowired
     @Qualifier("courseDao")
-    CrudDao<Course> courseDao;
+    CrudDao<Course, Integer> courseDao;
 
     @Test
     void courseDaoShouldInsertCourse() {

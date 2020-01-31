@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 
 @Repository("roomDao")
-public class RoomDaoImpl extends AbstractDao<Room> implements RoomDao {
+public class RoomDaoImpl extends AbstractDao<Room, Integer> implements RoomDao {
 
     private static final String SQL_FIND_ROOM = "SELECT * FROM rooms WHERE room_id = ?";
     private static final String SQL_DELETE_ROOM = "DELETE FROM rooms WHERE room_id = ?";
