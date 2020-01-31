@@ -1,8 +1,10 @@
 package com.foxminded.university.mapper;
 
 import com.foxminded.university.domain.WeeklyTimeUnit;
-import com.foxminded.university.mapper.WeeklyTimeUnitMapper;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -12,12 +14,13 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class WeeklyTimeUnitMapperTest {
 
-    private final ResultSet resultSet = mock(ResultSet.class);
+    @Mock
+    private ResultSet resultSet;
     private final RowMapper<WeeklyTimeUnit> weeklyTimeUnitMapper = new WeeklyTimeUnitMapper();
 
     @Test

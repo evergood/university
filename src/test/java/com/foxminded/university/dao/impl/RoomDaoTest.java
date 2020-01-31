@@ -45,9 +45,9 @@ public class RoomDaoTest {
 
     @Test
     void roomDaoShouldDeleteRoom() {
-        Room room = new Room(666);
-        roomDao.deleteById(room);
-        boolean isExist = roomDao.isExist(room);
+        Integer id = 666;
+        roomDao.deleteById(id);
+        boolean isExist = roomDao.isExist(id);
         assertFalse(isExist);
     }
 }

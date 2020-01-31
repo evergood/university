@@ -1,6 +1,8 @@
 package com.foxminded.university.mapper;
 
+import com.foxminded.university.dao.StudentDao;
 import com.foxminded.university.domain.Student;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +15,7 @@ public class StudentMapper implements RowMapper<Student> {
     @Override
     public Student mapRow(ResultSet resultSet, int i) throws SQLException {
         return resultSet.getRow() == 0 ? null : Student.builder()
-                .withId(resultSet.getInt("student_id"))
+                .withId(resultSet.getInt("user_id"))
                 .withFirstName(resultSet.getString("first_name"))
                 .withLastName(resultSet.getString("last_name"))
                 .build();

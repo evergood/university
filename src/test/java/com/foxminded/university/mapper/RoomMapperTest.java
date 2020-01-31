@@ -1,20 +1,23 @@
 package com.foxminded.university.mapper;
 
 import com.foxminded.university.domain.Room;
-import com.foxminded.university.mapper.RoomMapper;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class RoomMapperTest {
 
-    private final ResultSet resultSet = mock(ResultSet.class);
+    @Mock
+    private ResultSet resultSet;
     private final RowMapper<Room> roomMapper = new RoomMapper();
 
     @Test

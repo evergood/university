@@ -14,6 +14,10 @@ public class Student extends User {
         return new StudentBuilder();
     }
 
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -29,21 +33,6 @@ public class Student extends User {
         private List<Course> courses;
 
         private StudentBuilder() {
-        }
-
-        public StudentBuilder withId(Integer id) {
-            this.id = id;
-            return this;
-        }
-
-        public StudentBuilder withFirstName(String firstName) {
-            this.firstName = firstName;
-            return this;
-        }
-
-        public StudentBuilder withLastName(String lastName) {
-            this.lastName = lastName;
-            return this;
         }
 
         public StudentBuilder withCourses(List<Course> courses) {

@@ -1,6 +1,7 @@
 package com.foxminded.university.dao.impl;
 
 import com.foxminded.university.dao.CrudDao;
+import com.foxminded.university.domain.Role;
 import com.foxminded.university.domain.Student;
 import config.ConfigTest;
 import org.junit.jupiter.api.Test;
@@ -23,12 +24,15 @@ public class StudentDaoTest {
     @Test
     void studentDaoShouldInsertStudent() {
         Student expected = Student.builder()
-                .withId(11)
+                .withId(30)
+                .withEmail("123@gmail.com")
+                .withPassword("23gdfg")
+                .withRole(Role.STUDENT)
                 .withFirstName("Garry")
                 .withLastName("Cooper")
                 .build();
         studentDao.create(expected);
-        Student student = studentDao.getById(11).get();
+        Student student = studentDao.getById(30).get();
         assertEquals(expected, student);
     }
 
@@ -48,6 +52,8 @@ public class StudentDaoTest {
         Student expected = Student.builder()
                 .withFirstName("Garry")
                 .withLastName("Cooper")
+                .withEmail("123@gmail.com")
+                .withPassword("23gdfg")
                 .withId(5)
                 .build();
         studentDao.update(expected);
@@ -57,9 +63,9 @@ public class StudentDaoTest {
 
     @Test
     void studentDaoShouldDeleteStudent() {
-        Student student = Student.builder().withId(2).build();
-        studentDao.deleteById(student);
-        boolean isExist = studentDao.isExist(student);
+        Integer id = 2;
+        studentDao.deleteById(id);
+        boolean isExist = studentDao.isExist(id);
         assertFalse(isExist);
     }
 }

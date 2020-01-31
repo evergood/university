@@ -13,8 +13,8 @@ public abstract class AbstractDao<T> implements CrudDao<T> {
     private final String sqlUpdate;
     private final String sqlInsert;
     private final String sqlExists;
-    private final RowMapper<T> mapper;
-    private final JdbcTemplate jdbcTemplate;
+    protected final RowMapper<T> mapper;
+    protected final JdbcTemplate jdbcTemplate;
 
     protected AbstractDao(String sqlFind, String sqlDelete, String sqlUpdate,
                           String sqlInsert, String sqlExists, RowMapper<T> mapper, JdbcTemplate jdbcTemplate) {
@@ -34,8 +34,8 @@ public abstract class AbstractDao<T> implements CrudDao<T> {
     }
 
     @Override
-    public boolean deleteById(T entity) {
-        return jdbcTemplate.update(sqlDelete, getDeleteArgs(entity)) > 0;
+    public boolean deleteById(Integer id) {
+        return jdbcTemplate.update(sqlDelete, id) > 0;
     }
 
     @Override
@@ -49,15 +49,12 @@ public abstract class AbstractDao<T> implements CrudDao<T> {
     }
 
     @Override
-    public boolean isExist(T entity) {
-        return jdbcTemplate.queryForObject(sqlExists, Boolean.class, getExistArgs(entity));
+    public boolean isExist(Integer id) {
+        return jdbcTemplate.queryForObject(sqlExists, Boolean.class, id);
     }
-
-    protected abstract Object[] getDeleteArgs(T entity);
 
     protected abstract Object[] getUpdateArgs(T entity);
 
     protected abstract Object[] getCreateArgs(T entity);
 
-    protected abstract Integer getExistArgs(T entity);
 }
