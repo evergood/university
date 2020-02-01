@@ -2,9 +2,9 @@ package com.foxminded.university.dao;
 
 import java.util.Optional;
 
-public interface CrudDao<T, E> {
+public interface CrudDao<T> {
 
-    Optional<T> getById(E id);
+    Optional<T> getById(Integer id);
 
     boolean deleteById(T t);
 

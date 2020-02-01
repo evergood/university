@@ -18,7 +18,7 @@ public class RoomDaoTest {
 
     @Autowired
     @Qualifier("roomDao")
-    CrudDao<Room, Integer> roomDao;
+    CrudDao<Room> roomDao;
 
     @Test
     void roomDaoShouldInsertRoom() {
