@@ -2,6 +2,7 @@ package com.foxminded.university.dao.impl;
 
 import com.foxminded.university.dao.CrudDao;
 import com.foxminded.university.domain.Lecturer;
+import com.foxminded.university.domain.Role;
 import config.ConfigTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,45 +22,53 @@ public class LecturerDaoTest {
     CrudDao<Lecturer> lecturerDao;
 
     @Test
-    void lecturerDaoShouldInsertLecturer() {
+    public void lecturerDaoShouldInsertLecturer() {
         Lecturer expected = Lecturer.builder()
-                .withId(11)
+                .withEmail("20@gmail.com")
+                .withPassword("325dg#%")
+                .withRole(Role.LECTURER)
+                .withId(30)
                 .withFirstName("Garry")
                 .withLastName("Cooper")
+                .withRank("Professor")
                 .build();
         lecturerDao.create(expected);
-        Lecturer lecturer = lecturerDao.getById(11).get();
+        Lecturer lecturer = lecturerDao.getById(30).get();
         assertEquals(expected, lecturer);
     }
 
     @Test
-    void lecturerDaoShouldReturnLecturerById() {
-        Lecturer lecturer = lecturerDao.getById(10).get();
+    public void lecturerDaoShouldReturnLecturerById() {
+        Lecturer lecturer = lecturerDao.getById(20).get();
         Lecturer expected = Lecturer.builder()
                 .withFirstName("Emma")
                 .withLastName("Lee")
-                .withId(10)
+                .withId(20)
+                .withRank("Assistant Professor")
                 .build();
         assertEquals(expected, lecturer);
     }
 
     @Test
-    void lecturerDaoShouldUpdateLecturer() {
+    public void lecturerDaoShouldUpdateLecturer() {
         Lecturer expected = Lecturer.builder()
+                .withEmail("20@gmail.com")
+                .withPassword("325dg#%")
                 .withFirstName("Garry")
                 .withLastName("Cooper")
-                .withId(5)
+                .withId(20)
+                .withRank("Assistant Professor")
                 .build();
         lecturerDao.update(expected);
-        Lecturer lecturer = lecturerDao.getById(5).get();
+        Lecturer lecturer = lecturerDao.getById(20).get();
         assertEquals(expected, lecturer);
     }
 
     @Test
-    void lecturerDaoShouldDeleteLecturer() {
-        Lecturer lecturer = Lecturer.builder().withId(2).build();
-        lecturerDao.deleteById(lecturer);
-        boolean isExist = lecturerDao.isExist(lecturer);
+    public void lecturerDaoShouldDeleteLecturer() {
+        Integer id = 20;
+        lecturerDao.deleteById(id);
+        boolean isExist = lecturerDao.isExist(id);
         assertFalse(isExist);
     }
 }

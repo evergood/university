@@ -63,14 +63,9 @@ public class WeeklyTimeUnitDaoTest {
 
     @Test
     void weeklyTimeUnitDaoShouldDeleteWeeklyTimeUnit() {
-        WeeklyTimeUnit weeklyTimeUnit = WeeklyTimeUnit.builder()
-                .withId(10)
-                .withStartTime(LocalTime.of(10, 15))
-                .withEndTime(LocalTime.of(12, 0))
-                .withDayOfWeek(DayOfWeek.MONDAY)
-                .build();
-        weeklyTimeUnitDao.deleteById(weeklyTimeUnit);
-        boolean isExist = weeklyTimeUnitDao.isExist(weeklyTimeUnit);
+        Integer id = 10;
+        weeklyTimeUnitDao.deleteById(id);
+        boolean isExist = weeklyTimeUnitDao.isExist(id);
         assertFalse(isExist);
     }
 }

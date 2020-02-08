@@ -21,7 +21,7 @@ public class CourseDaoTest {
     CrudDao<Course> courseDao;
 
     @Test
-    void courseDaoShouldInsertCourse() {
+    public void courseDaoShouldInsertCourse() {
         Course expected = new Course(11, "Rocket Science");
         courseDao.create(expected);
         Course course = courseDao.getById(11).get();
@@ -29,14 +29,14 @@ public class CourseDaoTest {
     }
 
     @Test
-    void courseDaoShouldReturnCourseById() {
+    public void courseDaoShouldReturnCourseById() {
         Course course = courseDao.getById(7).get();
         Course expected = new Course(7, "Biology");
         assertEquals(expected, course);
     }
 
     @Test
-    void courseDaoShouldUpdateCourse() {
+    public void courseDaoShouldUpdateCourse() {
         Course expected = new Course(7, "Rocket Science");
         courseDao.update(expected);
         Course course = courseDao.getById(7).get();
@@ -44,10 +44,10 @@ public class CourseDaoTest {
     }
 
     @Test
-    void courseDaoShouldDeleteCourse() {
-        Course course = new Course(7, "Rocket Science");
-        courseDao.deleteById(course);
-        boolean isExist = courseDao.isExist(course);
+    public void courseDaoShouldDeleteCourse() {
+        Integer id = 7;
+        courseDao.deleteById(id);
+        boolean isExist = courseDao.isExist(id);
         assertFalse(isExist);
     }
 }

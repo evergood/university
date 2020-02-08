@@ -2,10 +2,28 @@ package com.foxminded.university.domain;
 
 public class Lecturer extends User {
 
-    private String rank;
+    protected final String rank;
 
-    protected Lecturer(LecturerBuilder personPersonBuilder) {
-        super(personPersonBuilder);
+    public String getRank() {
+        return rank;
+    }
+
+    @Override
+    public String toString() {
+        return "Lecturer{" +
+                "rank='" + rank + '\'' +
+                ", id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", role=" + role +
+                '}';
+    }
+
+    protected Lecturer(LecturerBuilder userUserBuilder) {
+        super(userUserBuilder);
+        this.rank = userUserBuilder.rank;
     }
 
     public static LecturerBuilder builder() {
@@ -14,24 +32,9 @@ public class Lecturer extends User {
 
     public static final class LecturerBuilder extends UserBuilder<LecturerBuilder> {
 
-        private String rank;
+        protected String rank;
 
-        private LecturerBuilder() {
-        }
-
-        public LecturerBuilder withId(Integer id) {
-            this.id = id;
-            return this;
-        }
-
-        public LecturerBuilder withFirstName(String firstName) {
-            this.firstName = firstName;
-            return this;
-        }
-
-        public LecturerBuilder withLastName(String lastName) {
-            this.lastName = lastName;
-            return this;
+        public LecturerBuilder() {
         }
 
         public LecturerBuilder withRank(String rank) {

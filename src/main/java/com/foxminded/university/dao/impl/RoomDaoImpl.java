@@ -25,11 +25,6 @@ public class RoomDaoImpl extends AbstractDao<Room> implements RoomDao {
     }
 
     @Override
-    protected Object[] getDeleteArgs(Room room) {
-        return new Object[]{room.getId()};
-    }
-
-    @Override
     protected Object[] getUpdateArgs(Room room) {
         return new Object[]{room.getId()};
     }
@@ -39,8 +34,4 @@ public class RoomDaoImpl extends AbstractDao<Room> implements RoomDao {
         return new Object[]{room.getId()};
     }
 
-    @Override
-    protected Integer getExistArgs(Room room) {
-        return room.getId();
-    }
 }

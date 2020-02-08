@@ -30,11 +30,6 @@ public class WeeklyTimeUnitDaoImpl extends AbstractDao<WeeklyTimeUnit> implement
     }
 
     @Override
-    protected Object[] getDeleteArgs(WeeklyTimeUnit weeklyTimeUnit) {
-        return new Object[]{weeklyTimeUnit.getId()};
-    }
-
-    @Override
     protected Object[] getUpdateArgs(WeeklyTimeUnit weeklyTimeUnit) {
         return new Object[]{weeklyTimeUnit.getDayOfWeek().toString(),
                 Time.valueOf(weeklyTimeUnit.getStartTime()), Time.valueOf(weeklyTimeUnit.getEndTime()),
@@ -48,8 +43,4 @@ public class WeeklyTimeUnitDaoImpl extends AbstractDao<WeeklyTimeUnit> implement
                 Time.valueOf(weeklyTimeUnit.getEndTime())};
     }
 
-    @Override
-    protected Integer getExistArgs(WeeklyTimeUnit weeklyTimeUnit) {
-        return weeklyTimeUnit.getId();
-    }
 }
