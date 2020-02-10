@@ -9,6 +9,8 @@ import com.foxminded.university.service.major.StudentService;
 import com.foxminded.university.service.major.UserService;
 import com.foxminded.university.service.major.ValidatorImpl;
 import com.foxminded.university.service.major.WeeklyTimeUnitService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,6 +44,8 @@ public class MenuController {
     private final CourseService courseService;
     private final WeeklyTimeUnitService weeklyTimeUnitService;
 
+    private static final Logger logger = LoggerFactory.getLogger(MenuController.class);
+
     @Autowired
     public MenuController(MenuView view, StudentService studentService,
                           LecturerService lecturerService, UserService userService,
@@ -58,6 +62,7 @@ public class MenuController {
         view.printText(LOGIN_MENU);
         switch (view.readOption()) {
             case 'A':
+                logger.debug("Option A");
                 executeSignIn();
             case 'B':
                 executeSignUp();
