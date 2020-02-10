@@ -1,6 +1,8 @@
 package com.foxminded.university.dao.impl;
 
 import com.foxminded.university.dao.CrudDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -16,6 +18,8 @@ public abstract class AbstractDao<T> implements CrudDao<T> {
     protected final RowMapper<T> mapper;
     protected final JdbcTemplate jdbcTemplate;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractDao.class);
+
     protected AbstractDao(String sqlFind, String sqlDelete, String sqlUpdate,
                           String sqlInsert, String sqlExists, RowMapper<T> mapper, JdbcTemplate jdbcTemplate) {
         this.sqlFind = sqlFind;
@@ -29,27 +33,33 @@ public abstract class AbstractDao<T> implements CrudDao<T> {
 
     @Override
     public Optional<T> getById(Integer id) {
+        LOGGER.debug("Getting entity with ID " + id  + " from DB");
         T entity = jdbcTemplate.queryForObject(sqlFind, new Object[]{id}, mapper);
+        LOGGER.debug("Returned entity with ID " + id + ": " + entity);
         return Optional.ofNullable(entity);
     }
 
     @Override
     public boolean deleteById(Integer id) {
+        LOGGER.debug("Deleting entity with ID " + id);
         return jdbcTemplate.update(sqlDelete, id) > 0;
     }
 
     @Override
     public boolean update(T entity) {
+        LOGGER.debug("Updating entity " + entity);
         return jdbcTemplate.update(sqlUpdate, getUpdateArgs(entity)) > 0;
     }
 
     @Override
     public boolean create(T entity) {
+        LOGGER.debug("Creating entity " + entity);
         return jdbcTemplate.update(sqlInsert, getCreateArgs(entity)) > 0;
     }
 
     @Override
     public boolean isExist(Integer id) {
+        LOGGER.debug("Checking if entity with ID " + id + " exists...");
         return jdbcTemplate.queryForObject(sqlExists, Boolean.class, id);
     }
 

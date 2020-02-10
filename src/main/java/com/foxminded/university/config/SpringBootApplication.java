@@ -1,8 +1,6 @@
 package com.foxminded.university.config;
 
 import com.foxminded.university.menu.MenuController;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -25,8 +23,6 @@ public class SpringBootApplication implements CommandLineRunner {
     private static final String USER = "dbuser";
     private static final String DRIVER = "driver";
     private static final String PASSWORD = "dbpassword";
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(SpringBootApplication.class);
 
     @Autowired
     private Environment environment;
@@ -51,7 +47,6 @@ public class SpringBootApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
         SpringApplication application = new SpringApplication(SpringBootApplication.class);
-        LOGGER.debug("Application has started");
         application.run(args);
 
     }
@@ -59,6 +54,5 @@ public class SpringBootApplication implements CommandLineRunner {
     @Override
     public void run(String... args) {
         menuController.executeLoginMenu();
-        LOGGER.debug("Menu executed");
     }
 }
