@@ -4,6 +4,8 @@ import com.foxminded.university.dao.UserDao;
 import com.foxminded.university.domain.Role;
 import com.foxminded.university.domain.User;
 import com.foxminded.university.service.Validator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ public class UserService {
 
     private final UserDao userDao;
     private final Validator<User> validator;
+    private static final Logger LOGGER = LoggerFactory.getLogger(LecturerService.class);
 
     @Autowired
     public UserService(UserDao userDao, ValidatorImpl validator) {
@@ -47,6 +50,7 @@ public class UserService {
 
     public boolean signIn(String email, String password) {
         if (email == null || password == null) {
+            LOGGER.error("Email or password is null");
             throw new RuntimeException("Email or password is null");
         }
         return userDao.getByEmail(email)
@@ -58,6 +62,7 @@ public class UserService {
     public User signUp(User user) {
         validator.validate(user);
         if (userDao.getById(user.getId()).isPresent()) {
+            LOGGER.error("User already exists");
             throw new RuntimeException("User already exists");
         }
         userDao.create(user);
@@ -66,6 +71,7 @@ public class UserService {
 
     public boolean updateCredentials(User currentUser, User targetUser) {
         if (currentUser.getRole() != Role.ADMIN) {
+            LOGGER.error("Current user doesn't have rights for this action");
             throw new RuntimeException("You don't have rights for this action");
         }
         userDao.getByEmail(targetUser.getEmail())

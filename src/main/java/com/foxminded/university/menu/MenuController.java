@@ -3,12 +3,15 @@ package com.foxminded.university.menu;
 import com.foxminded.university.domain.Lecturer;
 import com.foxminded.university.domain.Student;
 import com.foxminded.university.domain.User;
-import com.foxminded.university.service.major.*;
+import com.foxminded.university.service.major.CourseService;
+import com.foxminded.university.service.major.LecturerService;
+import com.foxminded.university.service.major.StudentService;
+import com.foxminded.university.service.major.UserService;
+import com.foxminded.university.service.major.WeeklyTimeUnitService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.Map;
 
 @Component

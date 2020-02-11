@@ -1,17 +1,18 @@
 <configuration>
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="SAVE-TO-FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${DEV_HOME}/log.log</file>
         <encoder>
             <pattern>%d{ISO8601} [%-5p][%t][%c] - %m%n</pattern>
         </encoder>
     </appender>
 
     <logger name="com.foxminded.university" level="DEBUG" additivity="false">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="SAVE-TO-FILE"/>
     </logger>
 
     <root level="debug">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="SAVE-TO-FILE"/>
     </root>
 
 </configuration>

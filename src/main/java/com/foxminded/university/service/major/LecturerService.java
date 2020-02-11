@@ -23,37 +23,30 @@ public class LecturerService {
     }
 
     public Optional<Lecturer> getById(Integer id) {
-        LOGGER.debug("Getting lecturer with ID " + id);
         return lecturerDao.getById(id);
     }
 
     public boolean deleteById(Integer id) {
-        LOGGER.debug("Deleting lecturer with ID " + id);
         return lecturerDao.deleteById(id);
     }
 
     public boolean update(Lecturer lecturer) {
-        LOGGER.debug("Updating lecturer " + lecturer);
         return lecturerDao.update(lecturer);
     }
 
     public boolean create(Lecturer lecturer) {
-        LOGGER.debug("Creating lecturer " + lecturer);
         return lecturerDao.create(lecturer);
     }
 
     public boolean isExist(Integer id) {
-        LOGGER.debug("Checking if lecturer with ID " + id + " exists");
         return lecturerDao.isExist(id);
     }
 
     public boolean putMark(User currentUser, Integer studentId, Integer courseId, Character mark) {
-        LOGGER.debug("Checking if user is eligible to put marks...");
         if (currentUser.getRole() != Role.LECTURER) {
             LOGGER.error("User is not  eligible to put marks");
             throw new RuntimeException("You're not eligible to put marks");
         }
-        LOGGER.debug("Putting mark for student ID " + studentId);
         return lecturerDao.putMark(studentId, courseId, mark);
     }
 }
