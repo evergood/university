@@ -9,9 +9,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Repository("studentDao")
 public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
@@ -32,6 +30,9 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
             "(student_id, course_name, timeunit_id) VALUES(?,?,?)";
     private static final String SQL_GET_STUDENT_SCHEDULE = "SELECT (course_name, timeunit_id)" +
             "FROM studenttimeunits WHERE student_id = ?";
+    private static final String SQL_GET_ALL_STUDENTS = "SELECT * FROM users WHERE role = STUDENT " +
+            "ORDER BY user_id LIMIT ? OFFSET ?";
+    private static final Integer LIMIT = 10;
 
     @Autowired
     protected StudentDaoImpl(DataSource dataSource) {
@@ -83,6 +84,19 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
                         mapResult.put(rs.getString("course_name"), rs.getInt("timeunit_id"));
                     }
                     return mapResult;
+                });
+    }
+
+    @Override
+    public List<Student> getAllStudents(Integer pageNum) {
+        int offset = (pageNum - 1) * LIMIT;
+        return jdbcTemplate.query(SQL_GET_ALL_STUDENTS, new Object[]{LIMIT, offset},
+                rs -> {
+                    List<Student> listResult = new ArrayList<>();
+                    while (rs.next()) {
+                        listResult.add(mapper.mapRow(rs, 1));
+                    }
+                    return listResult;
                 });
     }
 }
