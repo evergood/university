@@ -4,6 +4,8 @@ import com.foxminded.university.dao.LecturerDao;
 import com.foxminded.university.domain.Lecturer;
 import com.foxminded.university.domain.Role;
 import com.foxminded.university.domain.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import java.util.Optional;
 public class LecturerService {
 
     private final LecturerDao lecturerDao;
+    private static final Logger LOGGER = LoggerFactory.getLogger(LecturerService.class);
 
     @Autowired
     public LecturerService(LecturerDao lecturerDao) {
@@ -41,6 +44,7 @@ public class LecturerService {
 
     public boolean putMark(User currentUser, Integer studentId, Integer courseId, Character mark) {
         if (currentUser.getRole() != Role.LECTURER) {
+            LOGGER.error("User is not  eligible to put marks");
             throw new RuntimeException("You're not eligible to put marks");
         }
         return lecturerDao.putMark(studentId, courseId, mark);

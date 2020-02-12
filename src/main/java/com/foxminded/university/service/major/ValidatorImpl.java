@@ -2,6 +2,8 @@ package com.foxminded.university.service.major;
 
 import com.foxminded.university.domain.User;
 import com.foxminded.university.service.Validator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ public class ValidatorImpl implements Validator<User> {
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[a-zA-Z0-9_!#$%&*+/=?`{}~^.-]+@[a-zA-Z0-9.-]+$");
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})");
+    private static final Logger LOGGER = LoggerFactory.getLogger(LecturerService.class);
 
     @Override
     public void validate(User user) {
@@ -34,6 +37,7 @@ public class ValidatorImpl implements Validator<User> {
     private static void validateString(Pattern pattern, User user, Function<User, String> function,
                                        String exceptionMessage) {
         if (!pattern.matcher(function.apply(user)).matches()) {
+            LOGGER.error(exceptionMessage);
             throw new RuntimeException(exceptionMessage);
         }
     }
