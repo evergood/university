@@ -13,5 +13,5 @@ public interface StudentDao extends CrudDao<Student> {
 
     Map<String, Integer> getStudentSchedule(Integer studentId);
 
-    List<Student> getAllStudents(Integer page);
+    List<Student> getAllStudents(int page);
 }

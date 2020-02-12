@@ -7,9 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
-
 import javax.sql.DataSource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 
 @Repository("studentDao")
 public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
@@ -88,7 +92,7 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
     }
 
     @Override
-    public List<Student> getAllStudents(Integer pageNum) {
+    public List<Student> getAllStudents(int pageNum) {
         int offset = (pageNum - 1) * LIMIT;
         return jdbcTemplate.query(SQL_GET_ALL_STUDENTS, new Object[]{LIMIT, offset},
                 rs -> {
