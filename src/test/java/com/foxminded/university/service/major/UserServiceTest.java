@@ -29,7 +29,7 @@ class UserServiceTest {
     @Test
     void userServiceShouldReturnUSerById() {
         Integer id = 10;
-        User expected = User.builder().withId(1).build();
+        User expected = User.builder().build();
         when(userDao.getById(id)).thenReturn(Optional.of(expected));
 
         User actual = userService.getById(id).get();
@@ -40,7 +40,7 @@ class UserServiceTest {
     @Test
     void userServiceShouldReturnUSerByEmail() {
         String email = "123@gmail.com";
-        User expected = User.builder().withId(1).withEmail(email).build();
+        User expected = User.builder().withEmail(email).build();
         when(userDao.getByEmail(email)).thenReturn(Optional.of(expected));
 
         User actual = userService.getByEmail(email).get();
@@ -61,7 +61,7 @@ class UserServiceTest {
     @Test
     void userServiceShouldUpdateUserById() {
         Integer id = 10;
-        User expected = User.builder().withId(1).build();
+        User expected = User.builder().build();
         when(userDao.getById(id)).thenReturn(Optional.of(expected));
 
         userService.update(expected);
@@ -73,7 +73,7 @@ class UserServiceTest {
     @Test
     void userServiceShouldCreateUserById() {
         Integer id = 10;
-        User expected = User.builder().withId(1).build();
+        User expected = User.builder().build();
         when(userDao.getById(id)).thenReturn(Optional.of(expected));
 
         userService.create(expected);
@@ -96,12 +96,11 @@ class UserServiceTest {
 
     @Test
     void userServiceShouldSignUp() {
-        Integer id = 10;
-        String email = "123@gmail.com";
+        String email = "500@gmail.com";
         String password = "1464FGGG24@@dgdg";
-        User expected = User.builder().withId(id).withEmail(email).withPassword(password).build();
-        when(userDao.getById(id)).thenReturn(Optional.empty());
-        when(userDao.getByEmail(email)).thenReturn(Optional.ofNullable(expected));
+        User expected = User.builder().withEmail(email).withPassword(password).build();
+        when(userDao.getByEmail(email)).thenReturn(Optional.empty()).
+                thenReturn(Optional.ofNullable(expected));
 
         User actual = userService.signUp(expected);
 
@@ -114,7 +113,7 @@ class UserServiceTest {
         String email = "123@gmail.com";
         String password = "1464FGGG24@@dgdg";
         User currentUser = User.builder().withRole(Role.ADMIN).build();
-        User expected = User.builder().withId(id).withEmail(email).withPassword(password).build();
+        User expected = User.builder().withEmail(email).withPassword(password).build();
         when(userDao.getByEmail(email)).thenReturn(Optional.of(expected));
         when(userDao.update(expected)).thenReturn(true);
 

@@ -21,12 +21,15 @@ public class WeeklyTimeUnitDaoImpl extends AbstractDao<WeeklyTimeUnit> implement
             "INSERT INTO weeklytimeunits(weekly_time_unit_id, weekday, starttime, endtime) VALUES(?,?,?,?)";
     private static final String SQL_WEEKLY_TIME_UNIT_EXISTS =
             "SELECT EXISTS(SELECT FROM weeklytimeunits WHERE weekly_time_unit_id = ?)";
+    private static final String SQL_GET_ALL_TIME_UNITS = "SELECT * FROM weeklytimeunits " +
+            "ORDER BY user_id LIMIT ? OFFSET ?";
+    private static final String SQL_NUM_OF_TIME_UNITS = "SELECT COUNT (*) FROM weeklytimeunits";
 
     @Autowired
-    protected WeeklyTimeUnitDaoImpl(DataSource dataSource) {
+    protected WeeklyTimeUnitDaoImpl(WeeklyTimeUnitMapper weeklyTimeUnitMapper, JdbcTemplate jdbcTemplate) {
         super(SQL_FIND_WEEKLY_TIME_UNIT, SQL_DELETE_WEEKLY_TIME_UNIT, SQL_UPDATE_WEEKLY_TIME_UNIT,
-                SQL_INSERT_WEEKLY_TIME_UNIT, SQL_WEEKLY_TIME_UNIT_EXISTS, new WeeklyTimeUnitMapper(),
-                new JdbcTemplate(dataSource));
+                SQL_INSERT_WEEKLY_TIME_UNIT, SQL_WEEKLY_TIME_UNIT_EXISTS, SQL_NUM_OF_TIME_UNITS,
+                SQL_GET_ALL_TIME_UNITS, weeklyTimeUnitMapper, jdbcTemplate);
     }
 
     @Override

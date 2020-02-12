@@ -23,13 +23,15 @@ public class LecturerMapperTest {
     @Test
     public void lecturerMapperShouldReturnLecturer() throws SQLException {
         Lecturer expected = Lecturer.builder()
-                .withId(11)
+                .withEmail("123@gmail.com")
+                .withPassword("123_456")
                 .withFirstName("Garry")
                 .withLastName("Cooper")
                 .withRank("Professor")
                 .build();
         when(resultSet.getRow()).thenReturn(1);
-        when(resultSet.getInt("user_id")).thenReturn(11);
+        when(resultSet.getString("email")).thenReturn("123@gmail.com");
+        when(resultSet.getString("password")).thenReturn("123_456");
         when(resultSet.getString("first_name")).thenReturn("Garry");
         when(resultSet.getString("last_name")).thenReturn("Cooper");
         when(resultSet.getString("rank")).thenReturn("Professor");

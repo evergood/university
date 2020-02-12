@@ -3,7 +3,6 @@ package com.foxminded.university.domain;
 import java.util.Objects;
 
 public class User {
-    protected final Integer id;
     protected final String email;
     protected final String password;
     protected final String firstName;
@@ -12,7 +11,6 @@ public class User {
 
     protected User(UserBuilder<? extends UserBuilder> userUserBuilder) {
 
-        this.id = userUserBuilder.id;
         this.email = userUserBuilder.email;
         this.password = userUserBuilder.password;
         this.firstName = userUserBuilder.firstName;
@@ -22,10 +20,6 @@ public class User {
 
     public static UserBuilder<? extends UserBuilder> builder() {
         return new UserBuilder();
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public String getFirstName() {
@@ -57,26 +51,37 @@ public class User {
             return false;
         }
         User user = (User) o;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(firstName, user.firstName) &&
-                Objects.equals(lastName, user.lastName);
+        return Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName);
+        return Objects.hash(firstName, lastName);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", role=" + role +
+                '}';
     }
 
     public static class UserBuilder<SELF extends UserBuilder<SELF>> {
 
-        protected Integer id;
-        protected String email;
-        protected String password;
-        protected String firstName;
-        protected String lastName;
-        protected Role role;
+        public String email;
+        public String password;
+        public String firstName;
+        public String lastName;
+        public Role role;
 
-        protected UserBuilder() {
+        public UserBuilder() {
         }
 
         @SuppressWarnings("unchecked")
@@ -86,11 +91,6 @@ public class User {
 
         public User build() {
             return new User(self());
-        }
-
-        public SELF withId(Integer id) {
-            this.id = id;
-            return self();
         }
 
         public SELF withFirstName(String firstName) {

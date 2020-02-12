@@ -28,7 +28,7 @@ class LecturerServiceTest {
     @Test
     void lecturerServiceShouldReturnLecturerById() {
         Integer id = 10;
-        Lecturer expected = Lecturer.builder().withId(1).build();
+        Lecturer expected = Lecturer.builder().build();
         when(lecturerDao.getById(id)).thenReturn(Optional.of(expected));
 
         Lecturer actual = lecturerService.getById(id).get();
@@ -49,7 +49,7 @@ class LecturerServiceTest {
     @Test
     void lecturerServiceShouldUpdateLecturer() {
         Integer id = 10;
-        Lecturer expected = Lecturer.builder().withId(1).build();
+        Lecturer expected = Lecturer.builder().build();
         when(lecturerDao.getById(id)).thenReturn(Optional.of(expected));
 
         lecturerService.update(expected);
@@ -61,7 +61,7 @@ class LecturerServiceTest {
     @Test
     void lecturerServiceShouldInsertLecturer() {
         Integer id = 10;
-        Lecturer expected = Lecturer.builder().withId(1).build();
+        Lecturer expected = Lecturer.builder().build();
         when(lecturerDao.getById(id)).thenReturn(Optional.of(expected));
 
         lecturerService.create(expected);

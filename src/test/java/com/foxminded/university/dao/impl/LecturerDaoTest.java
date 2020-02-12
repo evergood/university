@@ -1,6 +1,6 @@
 package com.foxminded.university.dao.impl;
 
-import com.foxminded.university.dao.CrudDao;
+import com.foxminded.university.dao.LecturerDao;
 import com.foxminded.university.domain.Lecturer;
 import com.foxminded.university.domain.Role;
 import config.ConfigTest;
@@ -19,21 +19,21 @@ public class LecturerDaoTest {
 
     @Autowired
     @Qualifier("lecturerDao")
-    CrudDao<Lecturer> lecturerDao;
+    LecturerDao lecturerDao;
 
     @Test
     public void lecturerDaoShouldInsertLecturer() {
+        String email = "100@gmail.com";
         Lecturer expected = Lecturer.builder()
-                .withEmail("20@gmail.com")
+                .withEmail(email)
                 .withPassword("325dg#%")
                 .withRole(Role.LECTURER)
-                .withId(30)
                 .withFirstName("Garry")
                 .withLastName("Cooper")
                 .withRank("Professor")
                 .build();
         lecturerDao.create(expected);
-        Lecturer lecturer = lecturerDao.getById(30).get();
+        Lecturer lecturer = lecturerDao.getByEmail(email).get();
         assertEquals(expected, lecturer);
     }
 
@@ -41,9 +41,10 @@ public class LecturerDaoTest {
     public void lecturerDaoShouldReturnLecturerById() {
         Lecturer lecturer = lecturerDao.getById(20).get();
         Lecturer expected = Lecturer.builder()
+                .withEmail("20@gmail.com")
+                .withPassword("123_456")
                 .withFirstName("Emma")
                 .withLastName("Lee")
-                .withId(20)
                 .withRank("Assistant Professor")
                 .build();
         assertEquals(expected, lecturer);
@@ -51,16 +52,16 @@ public class LecturerDaoTest {
 
     @Test
     public void lecturerDaoShouldUpdateLecturer() {
+        String email = "20@gmail.com";
         Lecturer expected = Lecturer.builder()
-                .withEmail("20@gmail.com")
+                .withEmail(email)
                 .withPassword("325dg#%")
                 .withFirstName("Garry")
                 .withLastName("Cooper")
-                .withId(20)
                 .withRank("Assistant Professor")
                 .build();
         lecturerDao.update(expected);
-        Lecturer lecturer = lecturerDao.getById(20).get();
+        Lecturer lecturer = lecturerDao.getByEmail(email).get();
         assertEquals(expected, lecturer);
     }
 

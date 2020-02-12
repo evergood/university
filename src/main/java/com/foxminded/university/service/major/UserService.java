@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Service
-public class UserService {
+@Service("user_service")
+public class UserService extends PageService<User> {
 
     private final UserDao userDao;
     private final Validator<User> validator;
@@ -20,6 +20,7 @@ public class UserService {
 
     @Autowired
     public UserService(UserDao userDao, ValidatorImpl validator) {
+        super(userDao);
         this.userDao = userDao;
         this.validator = validator;
     }
@@ -60,8 +61,9 @@ public class UserService {
     }
 
     public User signUp(User user) {
+        LOGGER.debug("Starting signup");
         validator.validate(user);
-        if (userDao.getById(user.getId()).isPresent()) {
+        if (userDao.getByEmail(user.getEmail()).isPresent()) {
             LOGGER.error("User already exists");
             throw new RuntimeException("User already exists");
         }

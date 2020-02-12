@@ -12,7 +12,6 @@ public class Lecturer extends User {
     public String toString() {
         return "Lecturer{" +
                 "rank='" + rank + '\'' +
-                ", id=" + id +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +

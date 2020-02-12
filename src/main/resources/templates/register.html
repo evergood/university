@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Registration form</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+<h1>Input user data</h1>
+<div class="col-md-6">
+    <form action="#" th:action="@{/register}" th:object="${userForm}" method="post">
+        <div class="form-row">
+            <div class="form-group col">
+                <label>First Name</label>
+                <input type="text" th:unless="${#fields.hasErrors('firstName')}" class="form-control"
+                       placeholder="First name" th:field="*{firstName}">
+                <input type="text" th:if="${#fields.hasErrors('firstName')}" class="form-control alert-danger"
+                       placeholder="First name" th:field="*{firstName}">
+                <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+            </div>
+            <div class="form-group col">
+                <label>Last Name</label>
+                <input type="text" th:unless="${#fields.hasErrors('lastName')}" class="form-control"
+                       placeholder="Last name" th:field="*{lastName}">
+                <input type="text" th:if="${#fields.hasErrors('lastName')}" class="form-control alert-danger"
+                       placeholder="Last name" th:field="*{lastName}">
+                <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>E-mail</label>
+            <input type="text" th:unless="${#fields.hasErrors('email')}" class="form-control" placeholder="E-mail"
+                   th:field="*{email}">
+            <input type="text" th:if="${#fields.hasErrors('email')}" class="form-control alert-danger"
+                   placeholder="E-mail" th:field="*{email}">
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="text" th:unless="${#fields.hasErrors('passwordsEqual')}" class="form-control"
+                   placeholder="Password" th:field="*{password}">
+            <input type="text" th:if="${#fields.hasErrors('passwordsEqual')}" class="form-control alert-danger"
+                   placeholder="Password" th:field="*{password}">
+            <span th:if="${#fields.hasErrors('passwordsEqual')}" th:errors="*{password}"></span>
+        </div>
+        <div class="form-group">
+            <label> Repeat password</label>
+            <input type="text" th:unless="${#fields.hasErrors('passwordsEqual')}" class="form-control"
+                   placeholder="Password" th:field="*{passwordRepeat}">
+            <input type="text" th:if="${#fields.hasErrors('passwordsEqual')}" class="form-control alert-danger"
+                   placeholder="Password" th:field="*{passwordRepeat}">
+            <span class="error" th:if="${#fields.hasErrors('passwordsEqual')}" th:errors="*{passwordsEqual}"></span>
+        </div>
+        <input class="btn-primary" type="submit" value="Submit"/> <input class="btn-primary" type="reset"
+                                                                         value="Reset"/>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>

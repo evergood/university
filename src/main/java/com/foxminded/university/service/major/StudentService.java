@@ -5,22 +5,20 @@ import com.foxminded.university.dao.StudentDao;
 import com.foxminded.university.domain.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class StudentService {
+public class StudentService extends PageService<Student> {
 
     private final StudentDao studentDao;
     private final CourseDao courseDao;
 
-    private static final int ELEMENTS_PER_PAGE = 5;
-
     @Autowired
     public StudentService(StudentDao studentDao, CourseDao courseDao) {
+        super(studentDao);
         this.studentDao = studentDao;
         this.courseDao = courseDao;
     }
@@ -59,15 +57,10 @@ public class StudentService {
         return studentDao.getStudentSchedule(studentId);
     }
 
-    public List<Student> getAllStudents(int page) {
-        int numOfStudents = studentDao.getNumOfStudents();
-        int maxPage = numOfStudents % ELEMENTS_PER_PAGE == 0 ?
-                numOfStudents / ELEMENTS_PER_PAGE :
-                numOfStudents / ELEMENTS_PER_PAGE + 1;
-        if (page < 0 || page > maxPage) {
-            return studentDao.getAllStudents(1, ELEMENTS_PER_PAGE);
-        } else {
-            return studentDao.getAllStudents(page, ELEMENTS_PER_PAGE);
+    public List<Student> getAllStudents(String page) {
+        if (!page.chars().allMatch(Character::isDigit)) {
+            page = "1";
         }
+        return getAllEntitiesByPage(Integer.parseInt(page));
     }
 }

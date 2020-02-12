@@ -85,8 +85,8 @@ class CourseServiceTest {
     @Test
     void courseServiceShouldFindCStudentsByCourseId() {
         Integer id = 10;
-        List<User> expected = Arrays.asList(Student.builder().withId(1).build(),
-                Student.builder().withId(2).build());
+        List<User> expected = Arrays.asList(Student.builder().build(),
+                Student.builder().build());
         when(courseDao.findStudentsByCourseId(id)).thenReturn(expected);
 
         List<User> actual = courseService.findStudentsByCourseId(id);

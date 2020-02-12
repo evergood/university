@@ -24,7 +24,6 @@ class UserMapperTest {
     void userMapperShouldReturnUser() throws SQLException {
 
         User expected = User.builder()
-                .withId(11)
                 .withEmail("123@gmail.com")
                 .withPassword("124sfDGG#$")
                 .withFirstName("Garry")
@@ -32,7 +31,6 @@ class UserMapperTest {
                 .withRole(Role.STUDENT)
                 .build();
         when(resultSet.getRow()).thenReturn(1);
-        when(resultSet.getInt("user_id")).thenReturn(11);
         when(resultSet.getString("email")).thenReturn("123@gmail.com");
         when(resultSet.getString("password")).thenReturn("124sfDGG#$");
         when(resultSet.getString("first_name")).thenReturn("Garry");
