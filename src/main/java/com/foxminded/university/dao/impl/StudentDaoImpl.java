@@ -36,7 +36,7 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
             "FROM studenttimeunits WHERE student_id = ?";
     private static final String SQL_GET_ALL_STUDENTS = "SELECT * FROM users WHERE role = STUDENT " +
             "ORDER BY user_id LIMIT ? OFFSET ?";
-    private static final Integer LIMIT = 10;
+    private static final String SQL_NUM_OF_STUDENTS = "SELECT COUNT (*) FROM users WHERE role = STUDENT";
 
     @Autowired
     protected StudentDaoImpl(DataSource dataSource) {
@@ -92,9 +92,9 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
     }
 
     @Override
-    public List<Student> getAllStudents(int pageNum) {
-        int offset = (pageNum - 1) * LIMIT;
-        return jdbcTemplate.query(SQL_GET_ALL_STUDENTS, new Object[]{LIMIT, offset},
+    public List<Student> getAllStudents(int page, int elementsPerPage) {
+        int offset = (page - 1) * elementsPerPage;
+        return jdbcTemplate.query(SQL_GET_ALL_STUDENTS, new Object[]{elementsPerPage, offset},
                 rs -> {
                     List<Student> listResult = new ArrayList<>();
                     while (rs.next()) {
@@ -102,5 +102,10 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
                     }
                     return listResult;
                 });
+    }
+
+    @Override
+    public Integer getNumOfStudents() {
+        return jdbcTemplate.queryForObject(SQL_NUM_OF_STUDENTS, Integer.class);
     }
 }
