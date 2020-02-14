@@ -4,16 +4,21 @@
         <th> ID </th>
         <th> First name </th>
         <th> Last name </th>
+        <th> Email </th>
+        <th> Password </th>
+
     </tr>
     </thead>
     <tbody>
     <tr th:if="${students.empty}">
-        <td colspan="2"> No students has been found </td>
+        <td colspan="5"> No students has been found </td>
     </tr>
     <tr th:each="student : ${students}">
         <td><span th:text="${student.getId}"> ID </span></td>
         <td><span th:text="${student.getFirstName}"> First name </span></td>
         <td><span th:text="${student.getLastName}"> Last name </span></td>
+        <td><span th:text="${student.getEmail}"> Email </span></td>
+        <td><span th:text="${student.getPassword}"> Password </span></td>
     </tr>
     </tbody>
 </table>

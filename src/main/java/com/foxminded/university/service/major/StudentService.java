@@ -70,9 +70,4 @@ public class StudentService {
             return studentDao.getAllStudents(page, ELEMENTS_PER_PAGE);
         }
     }
-
-    public String showAllStudents(Model model) {
-        model.addAttribute("students", getAllStudents(1));
-        return "allStudents";
-    }
 }
