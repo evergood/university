@@ -5,6 +5,7 @@ import com.foxminded.university.dao.StudentDao;
 import com.foxminded.university.domain.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Map;
@@ -59,11 +60,19 @@ public class StudentService {
     }
 
     public List<Student> getAllStudents(int page) {
-        int maxPage = studentDao.getNumOfStudents() / ELEMENTS_PER_PAGE + 1;
+        int numOfStudents = studentDao.getNumOfStudents();
+        int maxPage = numOfStudents % ELEMENTS_PER_PAGE == 0 ?
+                numOfStudents / ELEMENTS_PER_PAGE :
+                numOfStudents / ELEMENTS_PER_PAGE + 1;
         if (page < 0 || page > maxPage) {
             return studentDao.getAllStudents(1, ELEMENTS_PER_PAGE);
         } else {
             return studentDao.getAllStudents(page, ELEMENTS_PER_PAGE);
         }
+    }
+
+    public String showAllStudents(Model model) {
+        model.addAttribute("students", getAllStudents(1));
+        return "allStudents";
     }
 }
