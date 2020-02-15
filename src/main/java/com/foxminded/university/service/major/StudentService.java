@@ -17,7 +17,7 @@ public class StudentService {
     private final StudentDao studentDao;
     private final CourseDao courseDao;
 
-    private static final int ELEMENTS_PER_PAGE = 10;
+    private static final int ELEMENTS_PER_PAGE = 5;
 
     @Autowired
     public StudentService(StudentDao studentDao, CourseDao courseDao) {

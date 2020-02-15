@@ -34,7 +34,7 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
             "(student_id, course_name, timeunit_id) VALUES(?,?,?)";
     private static final String SQL_GET_STUDENT_SCHEDULE = "SELECT (course_name, timeunit_id)" +
             "FROM studenttimeunits WHERE student_id = ?";
-    private static final String SQL_GET_ALL_STUDENTS = "SELECT * FROM users WHERE role = STUDENT " +
+    private static final String SQL_GET_ALL_STUDENTS = "SELECT * FROM users WHERE role = 'STUDENT' " +
             "ORDER BY user_id LIMIT ? OFFSET ?";
     private static final String SQL_NUM_OF_STUDENTS = "SELECT COUNT (*) FROM users WHERE role = STUDENT";
 
