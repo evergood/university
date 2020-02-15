@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS studentmarks CASCADE;
 CREATE TABLE courses
 (
     course_id   INT PRIMARY KEY,
-    course_name VARCHAR(255)
+    course_name VARCHAR(255) UNIQUE
 );
 CREATE TABLE weeklytimeunits
 (
@@ -55,6 +55,6 @@ CREATE TABLE studentmarks
     course     VARCHAR(255),
     mark       CHAR,
     FOREIGN KEY (student_id) REFERENCES users (user_id) ON DELETE CASCADE,
-    FOREIGN KEY (course) REFERENCES courses (course_id) ON DELETE CASCADE,
+    FOREIGN KEY (course) REFERENCES courses (course_name) ON DELETE CASCADE,
     UNIQUE (student_id, course)
 );
