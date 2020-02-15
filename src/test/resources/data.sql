@@ -1,6 +1,8 @@
 DELETE FROM users;
 DELETE FROM courses;
 DELETE FROM rooms;
+DELETE FROM weeklytimeunits;
+DELETE FROM studentcourses;
 DELETE FROM studenttimeunits;
 DELETE FROM studentmarks;
 INSERT INTO courses (course_id, course_name) VALUES (1, 'Economics');
@@ -30,6 +32,16 @@ INSERT INTO users (user_id, first_name, last_name, email, password, rank, role) 
 INSERT INTO users (user_id, first_name, last_name, email, password, rank, role) VALUES (18, 'Mason', 'Burke', '8@gmail.com', 123456, 'Professor', 'LECTURER');
 INSERT INTO users (user_id, first_name, last_name, email, password, rank, role) VALUES (19, 'James', 'Gregory', '9@gmail.com', 123456, 'Instructor', 'LECTURER');
 INSERT INTO users (user_id, first_name, last_name, email, password, rank, role) VALUES (20, 'Emma', 'Lee', '10@gmail.com', 123456, 'Assistant Professor', 'LECTURER');
+INSERT INTO users (user_id, first_name, last_name, email, password, rank, role) VALUES (21, 'Mason', 'Sullivan', '21@gmail.com', 123456, null, 'STUDENT');
+INSERT INTO users (user_id, first_name, last_name, email, password, rank, role) VALUES (22, 'Harper', 'Williams', '22@gmail.com', 123456, null, 'STUDENT');
+INSERT INTO users (user_id, first_name, last_name, email, password, rank, role) VALUES (23, 'James', 'Gregory', '23@gmail.com', 123456, null, 'STUDENT');
+INSERT INTO users (user_id, first_name, last_name, email, password, rank, role) VALUES (24, 'Olivia', 'Gregory', '24@gmail.com', 123456, null, 'STUDENT');
+INSERT INTO users (user_id, first_name, last_name, email, password, rank, role) VALUES (25, 'Olivia', 'Smith', '25@gmail.com', 123456, null, 'STUDENT');
+INSERT INTO users (user_id, first_name, last_name, email, password, rank, role) VALUES (26, 'Lucas', 'King', '26@gmail.com', 123456, null, 'STUDENT');
+INSERT INTO users (user_id, first_name, last_name, email, password, rank, role) VALUES (27, 'Liam', 'Mullin', '27@gmail.com', 123456, null, 'STUDENT');
+INSERT INTO users (user_id, first_name, last_name, email, password, rank, role) VALUES (28, 'Mason', 'Burke', '28@gmail.com', 123456, null, 'STUDENT');
+INSERT INTO users (user_id, first_name, last_name, email, password, rank, role) VALUES (29, 'James', 'Gregory', '29@gmail.com', 123456, null, 'STUDENT');
+INSERT INTO users (user_id, first_name, last_name, email, password, rank, role) VALUES (30, 'Emma', 'Lee', '30@gmail.com', 123456, null, 'STUDENT');
 INSERT INTO rooms (room_id) VALUES (101);
 INSERT INTO rooms (room_id) VALUES (102);
 INSERT INTO rooms (room_id) VALUES (103);

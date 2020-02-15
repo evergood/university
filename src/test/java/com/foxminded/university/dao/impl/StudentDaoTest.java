@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.test.context.ContextConfiguration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -19,7 +22,7 @@ public class StudentDaoTest {
 
     @Autowired
     @Qualifier("studentDao")
-    CrudDao<Student> studentDao;
+    StudentDaoImpl studentDao;
 
     @Test
     void studentDaoShouldInsertStudent() {
@@ -67,5 +70,29 @@ public class StudentDaoTest {
         studentDao.deleteById(id);
         boolean isExist = studentDao.isExist(id);
         assertFalse(isExist);
+    }
+
+    @Test
+    void studentDaoShouldReturnPageOfStudents() {
+        int pageNum = 1;
+        int elemsPerPage = 5;
+        List<Student> expected = new ArrayList<>();
+        expected.add(Student.builder().withId(1).withFirstName("Mason")
+                .withLastName("Sullivan").withEmail("1@gmail.com").withPassword("123_456")
+                .build());
+        expected.add(Student.builder().withId(2).withFirstName("Harper")
+                .withLastName("Williams").withEmail("2@gmail.com").withPassword("123_456")
+                .build());
+        expected.add(Student.builder().withId(3).withFirstName("James")
+                .withLastName("Gregory").withEmail("3@gmail.com").withPassword("123_456")
+                .build());
+        expected.add(Student.builder().withId(4).withFirstName("Olivia")
+                .withLastName("Gregory").withEmail("4@gmail.com").withPassword("123_456")
+                .build());
+        expected.add(Student.builder().withId(5).withFirstName("Olivia")
+                .withLastName("Smith").withEmail("5@gmail.com").withPassword("123_456")
+                .build());
+        List<Student> actual = studentDao.getAllStudents(pageNum, elemsPerPage);
+        assertEquals(expected, actual);
     }
 }

@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
-
 import javax.sql.DataSource;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
 
 @Repository("studentDao")
 public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
@@ -32,6 +34,9 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
             "(student_id, course_name, timeunit_id) VALUES(?,?,?)";
     private static final String SQL_GET_STUDENT_SCHEDULE = "SELECT (course_name, timeunit_id)" +
             "FROM studenttimeunits WHERE student_id = ?";
+    private static final String SQL_GET_ALL_STUDENTS = "SELECT * FROM users WHERE role = 'STUDENT' " +
+            "ORDER BY user_id LIMIT ? OFFSET ?";
+    private static final String SQL_NUM_OF_STUDENTS = "SELECT COUNT (*) FROM users WHERE role = STUDENT";
 
     @Autowired
     protected StudentDaoImpl(DataSource dataSource) {
@@ -84,5 +89,23 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
                     }
                     return mapResult;
                 });
+    }
+
+    @Override
+    public List<Student> getAllStudents(int page, int elementsPerPage) {
+        int offset = (page - 1) * elementsPerPage;
+        return jdbcTemplate.query(SQL_GET_ALL_STUDENTS, new Object[]{elementsPerPage, offset},
+                rs -> {
+                    List<Student> listResult = new ArrayList<>();
+                    while (rs.next()) {
+                        listResult.add(mapper.mapRow(rs, 1));
+                    }
+                    return listResult;
+                });
+    }
+
+    @Override
+    public Integer getNumOfStudents() {
+        return jdbcTemplate.queryForObject(SQL_NUM_OF_STUDENTS, Integer.class);
     }
 }

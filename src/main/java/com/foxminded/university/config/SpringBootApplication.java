@@ -48,7 +48,6 @@ public class SpringBootApplication implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication application = new SpringApplication(SpringBootApplication.class);
         application.run(args);
-
     }
 
     @Override
