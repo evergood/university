@@ -1,6 +1,5 @@
 package com.foxminded.university.dao.impl;
 
-import com.foxminded.university.dao.CrudDao;
 import com.foxminded.university.domain.Role;
 import com.foxminded.university.domain.Student;
 import config.ConfigTest;
@@ -26,16 +25,16 @@ public class StudentDaoTest {
 
     @Test
     void studentDaoShouldInsertStudent() {
+        String email = "123@gmail.com";
         Student expected = Student.builder()
-                .withId(30)
-                .withEmail("123@gmail.com")
+                .withEmail(email)
                 .withPassword("23gdfg")
                 .withRole(Role.STUDENT)
                 .withFirstName("Garry")
                 .withLastName("Cooper")
                 .build();
         studentDao.create(expected);
-        Student student = studentDao.getById(30).get();
+        Student student = studentDao.getByEmail(email).get();
         assertEquals(expected, student);
     }
 
@@ -43,24 +42,25 @@ public class StudentDaoTest {
     void studentDaoShouldReturnStudentById() {
         Student student = studentDao.getById(10).get();
         Student expected = Student.builder()
+                .withEmail("10@gmail.com")
+                .withPassword("123_456")
                 .withFirstName("Emma")
                 .withLastName("Lee")
-                .withId(10)
                 .build();
         assertEquals(expected, student);
     }
 
     @Test
     void studentDaoShouldUpdateStudent() {
+        String email = "1@gmail.com";
         Student expected = Student.builder()
                 .withFirstName("Garry")
                 .withLastName("Cooper")
-                .withEmail("123@gmail.com")
+                .withEmail(email)
                 .withPassword("23gdfg")
-                .withId(5)
                 .build();
         studentDao.update(expected);
-        Student student = studentDao.getById(5).get();
+        Student student = studentDao.getByEmail(email).get();
         assertEquals(expected, student);
     }
 

@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
-import javax.sql.DataSource;
-import java.util.ArrayList;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -21,10 +19,10 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
     private static final String SQL_FIND_STUDENT = "SELECT * FROM users WHERE user_id = ?";
     private static final String SQL_DELETE_STUDENT = "DELETE FROM users WHERE user_id = ?";
     private static final String SQL_UPDATE_STUDENT =
-            "UPDATE users SET email =?, password = ?, first_name = ?, last_name = ? " +
-                    "WHERE user_id = ?";
+            "UPDATE users SET password = ?, first_name = ?, last_name = ? " +
+                    "WHERE email = ?";
     private static final String SQL_INSERT_STUDENT =
-            "INSERT INTO users(email, password, user_id, first_name, last_name, role) VALUES(?,?,?,?,?,?)";
+            "INSERT INTO users(email, password, first_name, last_name, role) VALUES(?,?,?,?,?)";
     private static final String SQL_STUDENT_EXISTS = "SELECT EXISTS (SELECT FROM users WHERE user_id = ?)";
     private static final String SQL_VIEW_MARKS =
             "SELECT course_name, mark\n" +
@@ -36,12 +34,15 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
             "FROM studenttimeunits WHERE student_id = ?";
     private static final String SQL_GET_ALL_STUDENTS = "SELECT * FROM users WHERE role = 'STUDENT' " +
             "ORDER BY user_id LIMIT ? OFFSET ?";
-    private static final String SQL_NUM_OF_STUDENTS = "SELECT COUNT (*) FROM users WHERE role = STUDENT";
+    private static final String SQL_NUM_OF_STUDENTS = "SELECT COUNT (*) FROM users WHERE role = 'STUDENT'";
+    private final static String SQL_EXIST_BY_EMAIL = "SELECT EXISTS(SELECT FROM users WHERE email = ?)";
+    private final static String SQL_GET_BY_EMAIL = "SELECT * FROM users WHERE email = ?";
 
     @Autowired
-    protected StudentDaoImpl(DataSource dataSource) {
+    protected StudentDaoImpl(StudentMapper studentMapper, JdbcTemplate jdbcTemplate) {
         super(SQL_FIND_STUDENT, SQL_DELETE_STUDENT, SQL_UPDATE_STUDENT,
-                SQL_INSERT_STUDENT, SQL_STUDENT_EXISTS, new StudentMapper(), new JdbcTemplate(dataSource));
+                SQL_INSERT_STUDENT, SQL_STUDENT_EXISTS, SQL_NUM_OF_STUDENTS,
+                SQL_GET_ALL_STUDENTS, studentMapper, jdbcTemplate);
     }
 
     @Override
@@ -52,14 +53,14 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
 
     @Override
     protected Object[] getUpdateArgs(Student student) {
-        return new Object[]{student.getEmail(), student.getPassword(),
-                student.getFirstName(), student.getLastName(), student.getId()};
+        return new Object[]{student.getPassword(),
+                student.getFirstName(), student.getLastName(), student.getEmail()};
     }
 
     @Override
     protected Object[] getCreateArgs(Student student) {
         return new Object[]{student.getEmail(), student.getPassword(),
-                student.getId(), student.getFirstName(), student.getLastName(), student.getRole().name()};
+                student.getFirstName(), student.getLastName(), student.getRole().name()};
     }
 
     @Override
@@ -92,20 +93,17 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
     }
 
     @Override
-    public List<Student> getAllStudents(int page, int elementsPerPage) {
-        int offset = (page - 1) * elementsPerPage;
-        return jdbcTemplate.query(SQL_GET_ALL_STUDENTS, new Object[]{elementsPerPage, offset},
-                rs -> {
-                    List<Student> listResult = new ArrayList<>();
-                    while (rs.next()) {
-                        listResult.add(mapper.mapRow(rs, 1));
-                    }
-                    return listResult;
-                });
+    public boolean isExistByEmail(String email) {
+        return jdbcTemplate.queryForObject(SQL_EXIST_BY_EMAIL, Boolean.class, email);
     }
 
     @Override
-    public Integer getNumOfStudents() {
-        return jdbcTemplate.queryForObject(SQL_NUM_OF_STUDENTS, Integer.class);
+    public Optional<Student> getByEmail(String email) {
+        if (isExistByEmail(email)) {
+            Student student = jdbcTemplate.queryForObject(SQL_GET_BY_EMAIL, new Object[]{email}, mapper);
+            return Optional.ofNullable(student);
+        } else {
+            return Optional.empty();
+        }
     }
 }

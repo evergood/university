@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,11 +31,15 @@ public class CourseDaoImpl extends AbstractDao<Course> implements CourseDao {
             "SELECT users.user_id, users.first_name, users.last_name" +
                     "FROM (studentcourses JOIN users ON studentcourses.user_id = users.user_id)" +
                     "WHERE course_id = ?";
+    private static final String SQL_GET_ALL_COURSES = "SELECT * FROM courses" +
+            "ORDER BY user_id LIMIT ? OFFSET ?";
+    private static final String SQL_NUM_OF_COURSE = "SELECT COUNT (*) FROM courses";
 
     @Autowired
-    protected CourseDaoImpl(DataSource dataSource, StudentMapper studentMapper) {
+    protected CourseDaoImpl(StudentMapper studentMapper, CourseMapper courseMapper, JdbcTemplate jdbcTemplate) {
         super(SQL_FIND_COURSE, SQL_DELETE_COURSE, SQL_UPDATE_COURSE,
-                SQL_INSERT_COURSE, SQL_COURSE_EXISTS, new CourseMapper(), new JdbcTemplate(dataSource));
+                SQL_INSERT_COURSE, SQL_COURSE_EXISTS, SQL_NUM_OF_COURSE, SQL_GET_ALL_COURSES,
+                courseMapper, jdbcTemplate);
         this.studentMapper = studentMapper;
     }
 

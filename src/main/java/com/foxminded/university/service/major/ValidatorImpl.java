@@ -19,11 +19,13 @@ public class ValidatorImpl implements Validator<User> {
 
     @Override
     public void validate(User user) {
+        LOGGER.debug("Starting validation");
         if (user == null) {
             throw new RuntimeException("Null user");
         }
         validateLogin(user);
         validatePassword(user);
+        LOGGER.debug("Validation successful");
     }
 
     private static void validateLogin(User user) {

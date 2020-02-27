@@ -24,13 +24,13 @@ CREATE TABLE rooms
 );
 CREATE TABLE users
 (
-    user_id    INT PRIMARY KEY,
+    user_id    SERIAL PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
     last_name  VARCHAR(255) NOT NULL,
     email      VARCHAR(255) NOT NULL,
     password   VARCHAR(255) NOT NULL,
     rank       VARCHAR(255),
-    role       VARCHAR(255) NOT NULL
+    role       VARCHAR(255) DEFAULT 'UNDEFINED'
 );
 CREATE TABLE studentcourses
 (

@@ -1,5 +1,6 @@
 package com.foxminded.university.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CrudDao<T> {
@@ -13,4 +14,8 @@ public interface CrudDao<T> {
     boolean create(T t);
 
     boolean isExist(Integer id);
+
+    int getNumOfEntities();
+
+    List<T> getAllEntities(int page, int elemesPerPage);
 }

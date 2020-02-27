@@ -7,7 +7,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.foxminded.university" level="DEBUG" additivity="false">
+    <logger name="com.foxminded.university" level="trace" additivity="false">
         <appender-ref ref="SAVE-TO-FILE"/>
     </logger>
 

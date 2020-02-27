@@ -14,7 +14,8 @@ public class LecturerMapper implements RowMapper<Lecturer> {
     public Lecturer mapRow(ResultSet resultSet, int i) throws SQLException {
         return resultSet.getRow() == 0 ? null :
                 Lecturer.builder()
-                        .withId(resultSet.getInt("user_id"))
+                        .withEmail(resultSet.getString("email"))
+                        .withPassword(resultSet.getString("password"))
                         .withFirstName(resultSet.getString("first_name"))
                         .withLastName(resultSet.getString("last_name"))
                         .withRank(resultSet.getString("rank"))

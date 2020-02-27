@@ -22,7 +22,6 @@ public class Student extends User {
     public String toString() {
         return "Student{" +
                 "courses=" + courses +
-                ", id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';

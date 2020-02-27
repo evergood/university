@@ -28,7 +28,7 @@ class StudentServiceTest {
     @Test
     void studentServiceShouldReturnStudentById() {
         Integer id = 10;
-        Student expected = Student.builder().withId(1).build();
+        Student expected = Student.builder().build();
         when(studentDao.getById(id)).thenReturn(Optional.of(expected));
 
         Student actual = studentService.getById(id).get();
@@ -49,7 +49,7 @@ class StudentServiceTest {
     @Test
     void studentServiceShouldUpdateStudent() {
         Integer id = 10;
-        Student expected = Student.builder().withId(1).build();
+        Student expected = Student.builder().build();
         when(studentDao.getById(id)).thenReturn(Optional.of(expected));
 
         studentService.update(expected);
@@ -61,7 +61,7 @@ class StudentServiceTest {
     @Test
     void studentServiceShouldInsertStudent() {
         Integer id = 10;
-        Student  expected = Student.builder().withId(1).build();
+        Student  expected = Student.builder().build();
         when(studentDao.getById(id)).thenReturn(Optional.of(expected));
 
         studentService.create(expected);

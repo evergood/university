@@ -4,6 +4,7 @@ import com.foxminded.university.domain.Student;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface StudentDao extends CrudDao<Student> {
 
@@ -12,8 +13,8 @@ public interface StudentDao extends CrudDao<Student> {
     boolean insertStudentTimeUnit(Integer studentId, String courseName, Integer timeInitId);
 
     Map<String, Integer> getStudentSchedule(Integer studentId);
+    boolean isExistByEmail(String email);
 
-    List<Student> getAllStudents(int page, int elementsPerPage);
+    Optional<Student> getByEmail(String email);
 
-    Integer getNumOfStudents();
 }
