@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.test.context.ContextConfiguration;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 @JdbcTest
 @ContextConfiguration(classes = ConfigTest.class)
@@ -24,23 +24,23 @@ public class CourseDaoTest {
     public void courseDaoShouldInsertCourse() {
         Course expected = new Course(11, "Rocket Science");
         courseDao.create(expected);
-        Course course = courseDao.getById(11).get();
-        assertEquals(expected, course);
+        Course actual = courseDao.getById(11).get();
+        assertThat(expected, is(actual));
     }
 
     @Test
     public void courseDaoShouldReturnCourseById() {
-        Course course = courseDao.getById(7).get();
+        Course actual = courseDao.getById(7).get();
         Course expected = new Course(7, "Biology");
-        assertEquals(expected, course);
+        assertThat(expected, is(actual));
     }
 
     @Test
     public void courseDaoShouldUpdateCourse() {
         Course expected = new Course(7, "Rocket Science");
         courseDao.update(expected);
-        Course course = courseDao.getById(7).get();
-        assertEquals(expected, course);
+        Course actual = courseDao.getById(7).get();
+        assertThat(expected, is(actual));
     }
 
     @Test
@@ -48,6 +48,6 @@ public class CourseDaoTest {
         Integer id = 7;
         courseDao.deleteById(id);
         boolean isExist = courseDao.isExist(id);
-        assertFalse(isExist);
+        assertThat(isExist, is(false));
     }
 }

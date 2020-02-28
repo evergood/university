@@ -10,8 +10,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,7 +30,7 @@ class RoomServiceTest {
 
         Room actual = roomService.getById(id).get();
 
-        assertEquals(expected, actual);
+        assertThat(expected, is(actual));
     }
 
     @Test
@@ -40,7 +40,7 @@ class RoomServiceTest {
 
         boolean actual = roomService.isExist(id);
 
-        assertFalse(actual);
+        assertThat(actual, is(false));
     }
 
     @Test
@@ -52,7 +52,7 @@ class RoomServiceTest {
         roomService.update(expected);
         Room actual = roomService.getById(id).get();
 
-        assertEquals(expected, actual);
+        assertThat(expected, is(actual));
     }
 
     @Test
@@ -64,6 +64,6 @@ class RoomServiceTest {
         roomService.create(expected);
         Room actual = roomService.getById(id).get();
 
-        assertEquals(expected, actual);
+        assertThat(expected, is(actual));
     }
 }
