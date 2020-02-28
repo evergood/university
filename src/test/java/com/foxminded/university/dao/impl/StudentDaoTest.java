@@ -12,8 +12,8 @@ import org.springframework.test.context.ContextConfiguration;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 @JdbcTest
 @ContextConfiguration(classes = ConfigTest.class)
@@ -34,20 +34,20 @@ public class StudentDaoTest {
                 .withLastName("Cooper")
                 .build();
         studentDao.create(expected);
-        Student student = studentDao.getByEmail(email).get();
-        assertEquals(expected, student);
+        Student actual = studentDao.getByEmail(email).get();
+        assertThat(expected, is(actual));
     }
 
     @Test
     void studentDaoShouldReturnStudentById() {
-        Student student = studentDao.getById(10).get();
+        Student actual = studentDao.getById(10).get();
         Student expected = Student.builder()
                 .withEmail("10@gmail.com")
                 .withPassword("123_456")
                 .withFirstName("Emma")
                 .withLastName("Lee")
                 .build();
-        assertEquals(expected, student);
+        assertThat(expected, is(actual));
     }
 
     @Test
@@ -60,8 +60,8 @@ public class StudentDaoTest {
                 .withPassword("23gdfg")
                 .build();
         studentDao.update(expected);
-        Student student = studentDao.getByEmail(email).get();
-        assertEquals(expected, student);
+        Student actual = studentDao.getByEmail(email).get();
+        assertThat(expected, is(actual));
     }
 
     @Test
@@ -69,7 +69,7 @@ public class StudentDaoTest {
         Integer id = 2;
         studentDao.deleteById(id);
         boolean isExist = studentDao.isExist(id);
-        assertFalse(isExist);
+        assertThat(isExist, is(false));
     }
 
     @Test
@@ -77,22 +77,22 @@ public class StudentDaoTest {
         int pageNum = 1;
         int elemsPerPage = 5;
         List<Student> expected = new ArrayList<>();
-        expected.add(Student.builder().withId(1).withFirstName("Mason")
+        expected.add(Student.builder().withFirstName("Mason")
                 .withLastName("Sullivan").withEmail("1@gmail.com").withPassword("123_456")
                 .build());
-        expected.add(Student.builder().withId(2).withFirstName("Harper")
+        expected.add(Student.builder().withFirstName("Harper")
                 .withLastName("Williams").withEmail("2@gmail.com").withPassword("123_456")
                 .build());
-        expected.add(Student.builder().withId(3).withFirstName("James")
+        expected.add(Student.builder().withFirstName("James")
                 .withLastName("Gregory").withEmail("3@gmail.com").withPassword("123_456")
                 .build());
-        expected.add(Student.builder().withId(4).withFirstName("Olivia")
+        expected.add(Student.builder().withFirstName("Olivia")
                 .withLastName("Gregory").withEmail("4@gmail.com").withPassword("123_456")
                 .build());
-        expected.add(Student.builder().withId(5).withFirstName("Olivia")
+        expected.add(Student.builder().withFirstName("Olivia")
                 .withLastName("Smith").withEmail("5@gmail.com").withPassword("123_456")
                 .build());
-        List<Student> actual = studentDao.getAllStudents(pageNum, elemsPerPage);
-        assertEquals(expected, actual);
+        List<Student> actual = studentDao.getAllEntities(pageNum, elemsPerPage);
+        assertThat(expected, is(actual));
     }
 }
