@@ -3,6 +3,8 @@ package com.foxminded.university.service.major;
 import com.foxminded.university.domain.User;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -27,7 +29,7 @@ class ValidatorImplTest {
         User user = User.builder().withEmail(email).withPassword(password).build();
         Exception exception = assertThrows(RuntimeException.class, () -> validator.validate(user));
         String expected = "E-mail does not match the pattern";
-        assertEquals(expected, exception.getMessage());
+        assertThat(expected, is(exception.getMessage()));
     }
 
     @Test
@@ -37,6 +39,6 @@ class ValidatorImplTest {
         User user = User.builder().withEmail(email).withPassword(password).build();
         Exception exception = assertThrows(RuntimeException.class, () -> validator.validate(user));
         String expected = "Password do not match the pattern";
-        assertEquals(expected, exception.getMessage());
+        assertThat(expected, is(exception.getMessage()));
     }
 }

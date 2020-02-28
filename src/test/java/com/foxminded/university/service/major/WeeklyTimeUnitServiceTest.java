@@ -10,6 +10,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.when;
@@ -30,7 +32,7 @@ class WeeklyTimeUnitServiceTest {
 
         WeeklyTimeUnit actual = weeklyTimeUnitService.getById(id).get();
 
-        assertEquals(expected, actual);
+        assertThat(expected, is(actual));
     }
 
     @Test
@@ -40,7 +42,7 @@ class WeeklyTimeUnitServiceTest {
 
         boolean actual = weeklyTimeUnitService.isExist(id);
 
-        assertFalse(actual);
+        assertThat(actual, is(false));
     }
 
     @Test
@@ -52,7 +54,7 @@ class WeeklyTimeUnitServiceTest {
         weeklyTimeUnitService.update(expected);
         WeeklyTimeUnit actual = weeklyTimeUnitDao.getById(id).get();
 
-        assertEquals(expected, actual);
+        assertThat(expected, is(actual));
     }
 
     @Test
@@ -64,6 +66,6 @@ class WeeklyTimeUnitServiceTest {
         weeklyTimeUnitService.create(expected);
         WeeklyTimeUnit actual = weeklyTimeUnitDao.getById(id).get();
 
-        assertEquals(expected, actual);
+        assertThat(expected, is(actual));
     }
 }

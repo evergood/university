@@ -10,7 +10,8 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,7 +27,7 @@ public class CourseMapperTest {
         when(resultSet.getRow()).thenReturn(1);
         when(resultSet.getInt("course_id")).thenReturn(11);
         when(resultSet.getString("course_name")).thenReturn("Rocket Science");
-        Course course = courseMapper.mapRow(resultSet, 1);
-        assertEquals(expected, course);
+        Course actual = courseMapper.mapRow(resultSet, 1);
+        assertThat(expected, is(actual));
     }
 }

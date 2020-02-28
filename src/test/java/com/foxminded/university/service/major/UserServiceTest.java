@@ -11,9 +11,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,7 +33,7 @@ class UserServiceTest {
 
         User actual = userService.getById(id).get();
 
-        assertEquals(expected, actual);
+        assertThat(expected, is(actual));
     }
 
     @Test
@@ -45,7 +44,7 @@ class UserServiceTest {
 
         User actual = userService.getByEmail(email).get();
 
-        assertEquals(expected, actual);
+        assertThat(expected, is(actual));
     }
 
     @Test
@@ -55,7 +54,7 @@ class UserServiceTest {
 
         boolean actual = userService.isExist(id);
 
-        assertFalse(actual);
+        assertThat(actual, is(false));
     }
 
     @Test
@@ -67,7 +66,7 @@ class UserServiceTest {
         userService.update(expected);
         User actual = userDao.getById(id).get();
 
-        assertEquals(expected, actual);
+        assertThat(expected, is(actual));
     }
 
     @Test
@@ -79,7 +78,7 @@ class UserServiceTest {
         userService.create(expected);
         User actual = userDao.getById(id).get();
 
-        assertEquals(expected, actual);
+        assertThat(expected, is(actual));
     }
 
     @Test
@@ -91,7 +90,7 @@ class UserServiceTest {
 
         boolean actual = userService.signIn(email, password);
 
-        assertTrue(actual);
+        assertThat(actual, is(true));
     }
 
     @Test
@@ -104,7 +103,7 @@ class UserServiceTest {
 
         User actual = userService.signUp(expected);
 
-        assertEquals(expected, actual);
+        assertThat(expected, is(actual));
     }
 
     @Test
@@ -119,6 +118,6 @@ class UserServiceTest {
 
         boolean actual = userService.updateCredentials(currentUser, expected);
 
-        assertTrue(actual);
+        assertThat(actual, is(true));
     }
 }

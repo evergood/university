@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.test.context.ContextConfiguration;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 @JdbcTest
 @ContextConfiguration(classes = ConfigTest.class)
@@ -24,23 +24,23 @@ public class RoomDaoTest {
     void roomDaoShouldInsertRoom() {
         Room expected = new Room(666);
         roomDao.create(expected);
-        Room room = roomDao.getById(666).get();
-        assertEquals(expected, room);
+        Room actual = roomDao.getById(666).get();
+        assertThat(expected, is(actual));
     }
 
     @Test
     void roomDaoShouldReturnRoomById() {
-        Room room = roomDao.getById(101).get();
+        Room actual = roomDao.getById(101).get();
         Room expected = new Room(101);
-        assertEquals(expected, room);
+        assertThat(expected, is(actual));
     }
 
     @Test
     void roomDaoShouldUpdateRoom() {
         Room expected = new Room(666);
         roomDao.update(expected);
-        Room room = roomDao.getById(666).get();
-        assertEquals(expected, room);
+        Room actual = roomDao.getById(666).get();
+        assertThat(expected, is(actual));
     }
 
     @Test
@@ -48,6 +48,6 @@ public class RoomDaoTest {
         Integer id = 666;
         roomDao.deleteById(id);
         boolean isExist = roomDao.isExist(id);
-        assertFalse(isExist);
+        assertThat(isExist, is(false));
     }
 }

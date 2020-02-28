@@ -12,8 +12,8 @@ import org.springframework.test.context.ContextConfiguration;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 @JdbcTest
 @ContextConfiguration(classes = ConfigTest.class)
@@ -32,20 +32,20 @@ public class WeeklyTimeUnitDaoTest {
                 .withDayOfWeek(DayOfWeek.MONDAY)
                 .build();
         weeklyTimeUnitDao.create(expected);
-        WeeklyTimeUnit weeklyTimeUnit = weeklyTimeUnitDao.getById(20).get();
-        assertEquals(expected, weeklyTimeUnit);
+        WeeklyTimeUnit actual = weeklyTimeUnitDao.getById(20).get();
+        assertThat(expected, is(actual));
     }
 
     @Test
     void weeklyTimeUnitDaoShouldReturnWeeklyTimeUnitById() {
-        WeeklyTimeUnit weeklyTimeUnit = weeklyTimeUnitDao.getById(10).get();
+        WeeklyTimeUnit actual = weeklyTimeUnitDao.getById(10).get();
         WeeklyTimeUnit expected = WeeklyTimeUnit.builder()
                 .withStartTime(LocalTime.of(10, 0))
                 .withEndTime(LocalTime.of(12, 0))
                 .withDayOfWeek(DayOfWeek.THURSDAY)
                 .withId(10)
                 .build();
-        assertEquals(expected, weeklyTimeUnit);
+        assertThat(expected, is(actual));
     }
 
     @Test
@@ -57,8 +57,8 @@ public class WeeklyTimeUnitDaoTest {
                 .withDayOfWeek(DayOfWeek.MONDAY)
                 .build();
         weeklyTimeUnitDao.update(expected);
-        WeeklyTimeUnit weeklyTimeUnit = weeklyTimeUnitDao.getById(15).get();
-        assertEquals(expected, weeklyTimeUnit);
+        WeeklyTimeUnit actual = weeklyTimeUnitDao.getById(15).get();
+        assertThat(expected, is(actual));
     }
 
     @Test
@@ -66,6 +66,6 @@ public class WeeklyTimeUnitDaoTest {
         Integer id = 10;
         weeklyTimeUnitDao.deleteById(id);
         boolean isExist = weeklyTimeUnitDao.isExist(id);
-        assertFalse(isExist);
+        assertThat(isExist, is(false));
     }
 }

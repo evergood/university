@@ -14,8 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,7 +34,7 @@ class CourseServiceTest {
 
         Course actual = courseService.getById(id).get();
 
-        assertEquals(expected, actual);
+        assertThat(expected, is(actual));
     }
 
     @Test
@@ -44,7 +44,7 @@ class CourseServiceTest {
 
         boolean actual = courseService.isExist(id);
 
-        assertFalse(actual);
+        assertThat(actual, is(false));
     }
 
     @Test
@@ -56,7 +56,7 @@ class CourseServiceTest {
         courseService.update(expected);
         Course actual = courseService.getById(id).get();
 
-        assertEquals(expected, actual);
+        assertThat(expected, is(actual));
     }
 
     @Test
@@ -68,7 +68,7 @@ class CourseServiceTest {
         courseService.create(expected);
         Course actual = courseService.getById(id).get();
 
-        assertEquals(expected, actual);
+        assertThat(expected, is(actual));
     }
 
     @Test
@@ -79,7 +79,7 @@ class CourseServiceTest {
 
         List<Course> actual = courseService.findCoursesByStudentId(id);
 
-        assertEquals(expected, actual);
+        assertThat(expected, is(actual));
     }
 
     @Test
@@ -91,6 +91,6 @@ class CourseServiceTest {
 
         List<User> actual = courseService.findStudentsByCourseId(id);
 
-        assertEquals(expected, actual);
+        assertThat(expected, is(actual));
     }
 }

@@ -10,7 +10,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -36,7 +37,7 @@ class UserMapperTest {
         when(resultSet.getString("first_name")).thenReturn("Garry");
         when(resultSet.getString("last_name")).thenReturn("Cooper");
         when(resultSet.getString("role")).thenReturn("STUDENT");
-        User user = userMapper.mapRow(resultSet, 1);
-        assertEquals(expected, user);
+        User actual = userMapper.mapRow(resultSet, 1);
+        assertThat(expected, is(actual));
     }
 }
