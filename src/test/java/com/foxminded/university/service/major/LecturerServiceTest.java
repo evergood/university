@@ -12,8 +12,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,7 +33,7 @@ class LecturerServiceTest {
 
         Lecturer actual = lecturerService.getById(id).get();
 
-        assertThat(expected, is(actual));
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -42,7 +43,7 @@ class LecturerServiceTest {
 
         boolean actual = lecturerService.isExist(id);
 
-        assertThat(actual, is(false));
+        assertFalse(actual);
     }
 
     @Test
@@ -54,7 +55,7 @@ class LecturerServiceTest {
         lecturerService.update(expected);
         Lecturer actual = lecturerDao.getById(id).get();
 
-        assertThat(expected, is(actual));
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -66,7 +67,7 @@ class LecturerServiceTest {
         lecturerService.create(expected);
         Lecturer actual = lecturerDao.getById(id).get();
 
-        assertThat(expected, is(actual));
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -79,6 +80,6 @@ class LecturerServiceTest {
 
         boolean actual = lecturerService.putMark(currentUser, id, courseId, mark);
 
-        assertThat(actual, is(true));
+        assertTrue(actual);
     }
 }

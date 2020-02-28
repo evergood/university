@@ -11,8 +11,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,7 +33,7 @@ class StudentServiceTest {
 
         Student actual = studentService.getById(id).get();
 
-        assertThat(expected, is(actual));
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -43,7 +43,7 @@ class StudentServiceTest {
 
         boolean actual = studentService.isExist(id);
 
-        assertThat(actual, is(false));
+        assertFalse(actual);
     }
 
     @Test
@@ -55,19 +55,19 @@ class StudentServiceTest {
         studentService.update(expected);
         Student actual = studentDao.getById(id).get();
 
-        assertThat(expected, is(actual));
+        assertEquals(expected, actual);
     }
 
     @Test
     void studentServiceShouldInsertStudent() {
         Integer id = 10;
-        Student expected = Student.builder().build();
+        Student  expected = Student.builder().build();
         when(studentDao.getById(id)).thenReturn(Optional.of(expected));
 
         studentService.create(expected);
         Student actual = studentDao.getById(id).get();
 
-        assertThat(expected, is(actual));
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -80,7 +80,7 @@ class StudentServiceTest {
 
         Map<String, Character> actual = studentService.viewMarks(id);
 
-        assertThat(expected, is(actual));
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -93,88 +93,87 @@ class StudentServiceTest {
 
         Map<String, Integer> actual = studentService.getStudentSchedule(id);
 
-        assertThat(expected, is(actual));
+        assertEquals(expected, actual);
     }
 
     @Test
     void studentServiceShouldGetPageOfStudents() {
-        String pageNum = "1";
+        int pageNum = 1;
         int elemsPerPage = 5;
         List<Student> expected = new ArrayList<>();
-        expected.add(Student.builder().withFirstName("Mason")
+        expected.add(Student.builder().withId(1).withFirstName("Mason")
                 .withLastName("Sullivan").withEmail("1@gmail.com").withPassword("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Harper")
+        expected.add(Student.builder().withId(2).withFirstName("Harper")
                 .withLastName("Williams").withEmail("2@gmail.com").withPassword("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("James")
+        expected.add(Student.builder().withId(3).withFirstName("James")
                 .withLastName("Gregory").withEmail("3@gmail.com").withPassword("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Olivia")
+        expected.add(Student.builder().withId(4).withFirstName("Olivia")
                 .withLastName("Gregory").withEmail("4@gmail.com").withPassword("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Olivia")
+        expected.add(Student.builder().withId(5).withFirstName("Olivia")
                 .withLastName("Smith").withEmail("5@gmail.com").withPassword("123_456")
                 .build());
-        when(studentDao.getAllEntities(Integer.parseInt(pageNum), elemsPerPage))
-                .thenReturn(expected);
+        when(studentDao.getAllStudents(pageNum, elemsPerPage)).thenReturn(expected);
 
         List<Student> actual = studentService.getAllStudents(pageNum);
 
-        assertThat(expected, is(actual));
+        assertEquals(expected, actual);
     }
 
     @Test
     void studentServiceShouldGetFirstPageOfStudentsIfPAgeNumGreaterThanMaxPage() {
-        String pageNum = "10";
+        int pageNum = 10;
         int elemsPerPage = 5;
         List<Student> expected = new ArrayList<>();
-        expected.add(Student.builder().withFirstName("Mason")
+        expected.add(Student.builder().withId(1).withFirstName("Mason")
                 .withLastName("Sullivan").withEmail("1@gmail.com").withPassword("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Harper")
+        expected.add(Student.builder().withId(2).withFirstName("Harper")
                 .withLastName("Williams").withEmail("2@gmail.com").withPassword("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("James")
+        expected.add(Student.builder().withId(3).withFirstName("James")
                 .withLastName("Gregory").withEmail("3@gmail.com").withPassword("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Olivia")
+        expected.add(Student.builder().withId(4).withFirstName("Olivia")
                 .withLastName("Gregory").withEmail("4@gmail.com").withPassword("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Olivia")
+        expected.add(Student.builder().withId(5).withFirstName("Olivia")
                 .withLastName("Smith").withEmail("5@gmail.com").withPassword("123_456")
                 .build());
-        when(studentDao.getAllEntities(1, elemsPerPage)).thenReturn(expected);
+        when(studentDao.getAllStudents(1, elemsPerPage)).thenReturn(expected);
 
         List<Student> actual = studentService.getAllStudents(pageNum);
 
-        assertThat(expected, is(actual));
+        assertEquals(expected, actual);
     }
 
     @Test
     void studentServiceShouldGetFirstPageOfStudentsIfPAgeNumLessThanZero() {
-        String pageNum = "-10";
+        int pageNum = -10;
         int elemsPerPage = 5;
         List<Student> expected = new ArrayList<>();
-        expected.add(Student.builder().withFirstName("Mason")
+        expected.add(Student.builder().withId(1).withFirstName("Mason")
                 .withLastName("Sullivan").withEmail("1@gmail.com").withPassword("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Harper")
+        expected.add(Student.builder().withId(2).withFirstName("Harper")
                 .withLastName("Williams").withEmail("2@gmail.com").withPassword("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("James")
+        expected.add(Student.builder().withId(3).withFirstName("James")
                 .withLastName("Gregory").withEmail("3@gmail.com").withPassword("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Olivia")
+        expected.add(Student.builder().withId(4).withFirstName("Olivia")
                 .withLastName("Gregory").withEmail("4@gmail.com").withPassword("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Olivia")
+        expected.add(Student.builder().withId(5).withFirstName("Olivia")
                 .withLastName("Smith").withEmail("5@gmail.com").withPassword("123_456")
                 .build());
-        when(studentDao.getAllEntities(1, elemsPerPage)).thenReturn(expected);
+        when(studentDao.getAllStudents(1, elemsPerPage)).thenReturn(expected);
 
         List<Student> actual = studentService.getAllStudents(pageNum);
 
-        assertThat(expected, is(actual));
+        assertEquals(expected, actual);
     }
 }

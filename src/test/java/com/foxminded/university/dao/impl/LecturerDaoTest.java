@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.test.context.ContextConfiguration;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @JdbcTest
 @ContextConfiguration(classes = ConfigTest.class)
@@ -33,13 +33,13 @@ public class LecturerDaoTest {
                 .withRank("Professor")
                 .build();
         lecturerDao.create(expected);
-        Lecturer actual = lecturerDao.getByEmail(email).get();
-        assertThat(expected, is(actual));
+        Lecturer lecturer = lecturerDao.getByEmail(email).get();
+        assertEquals(expected, lecturer);
     }
 
     @Test
     public void lecturerDaoShouldReturnLecturerById() {
-        Lecturer actual = lecturerDao.getById(20).get();
+        Lecturer lecturer = lecturerDao.getById(20).get();
         Lecturer expected = Lecturer.builder()
                 .withEmail("20@gmail.com")
                 .withPassword("123_456")
@@ -47,7 +47,7 @@ public class LecturerDaoTest {
                 .withLastName("Lee")
                 .withRank("Assistant Professor")
                 .build();
-        assertThat(expected, is(actual));
+        assertEquals(expected, lecturer);
     }
 
     @Test
@@ -61,8 +61,8 @@ public class LecturerDaoTest {
                 .withRank("Assistant Professor")
                 .build();
         lecturerDao.update(expected);
-        Lecturer actual = lecturerDao.getByEmail(email).get();
-        assertThat(expected, is(actual));
+        Lecturer lecturer = lecturerDao.getByEmail(email).get();
+        assertEquals(expected, lecturer);
     }
 
     @Test
@@ -70,6 +70,6 @@ public class LecturerDaoTest {
         Integer id = 20;
         lecturerDao.deleteById(id);
         boolean isExist = lecturerDao.isExist(id);
-        assertThat(isExist, is(false));
+        assertFalse(isExist);
     }
 }

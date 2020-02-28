@@ -13,8 +13,7 @@ import java.sql.Time;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -37,7 +36,7 @@ public class WeeklyTimeUnitMapperTest {
         when(resultSet.getTime("starttime")).thenReturn(Time.valueOf("10:15:00"));
         when(resultSet.getTime("endtime")).thenReturn(Time.valueOf("12:00:00"));
         when(resultSet.getString("weekday")).thenReturn("MONDAY");
-        WeeklyTimeUnit actual = weeklyTimeUnitMapper.mapRow(resultSet, 1);
-        assertThat(expected, is(actual));
+        WeeklyTimeUnit weeklyTimeUnit = weeklyTimeUnitMapper.mapRow(resultSet, 1);
+        assertEquals(expected, weeklyTimeUnit);
     }
 }

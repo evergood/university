@@ -9,8 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,7 +28,7 @@ public class StudentMapperTest {
         when(resultSet.getRow()).thenReturn(1);
         when(resultSet.getString("first_name")).thenReturn("Garry");
         when(resultSet.getString("last_name")).thenReturn("Cooper");
-        Student actual = studentMapper.mapRow(resultSet, 1);
-        assertThat(expected, is(actual));
+        Student student = studentMapper.mapRow(resultSet, 1);
+        assertEquals(expected, student);
     }
 }

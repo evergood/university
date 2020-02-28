@@ -10,8 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,7 +25,7 @@ public class RoomMapperTest {
         Room expected = new Room(111);
         when(resultSet.getRow()).thenReturn(1);
         when(resultSet.getInt("room_id")).thenReturn(111);
-        Room actual = roomMapper.mapRow(resultSet, 1);
-        assertThat(expected, is(actual));
+        Room room = roomMapper.mapRow(resultSet, 1);
+        assertEquals(expected, room);
     }
 }
