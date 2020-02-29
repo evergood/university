@@ -1,8 +1,9 @@
 package com.foxminded.university.dao.impl;
 
 import com.foxminded.university.dao.CrudDao;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -10,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@Slf4j
 public abstract class AbstractDao<T> implements CrudDao<T> {
 
     private final String sqlFind;
@@ -21,22 +24,6 @@ public abstract class AbstractDao<T> implements CrudDao<T> {
     private final String sqlGetAll;
     protected final RowMapper<T> mapper;
     protected final JdbcTemplate jdbcTemplate;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractDao.class);
-
-    protected AbstractDao(String sqlFind, String sqlDelete, String sqlUpdate,
-                          String sqlInsert, String sqlExists, String sqlGetTotalNum,
-                          String sqlGetAll, RowMapper<T> mapper, JdbcTemplate jdbcTemplate) {
-        this.sqlFind = sqlFind;
-        this.sqlDelete = sqlDelete;
-        this.sqlUpdate = sqlUpdate;
-        this.sqlInsert = sqlInsert;
-        this.sqlExists = sqlExists;
-        this.sqlGetTotalNum = sqlGetTotalNum;
-        this.sqlGetAll = sqlGetAll;
-        this.mapper = mapper;
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Override
     public Optional<T> getById(Integer id) {

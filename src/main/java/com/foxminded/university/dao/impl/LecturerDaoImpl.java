@@ -18,7 +18,7 @@ public class LecturerDaoImpl extends AbstractDao<Lecturer> implements LecturerDa
             "UPDATE users SET password = ?, first_name = ?, last_name = ?, rank = ? " +
                     "WHERE email = ?";
     private static final String SQL_INSERT_LECTURER =
-            "INSERT INTO users(email, password, first_name, last_name, rank, role) VALUES(?,?,?,?,?,?)";
+            "INSERT INTO users(email, password, first_name, last_name, rank) VALUES(?,?,?,?,?)";
     private static final String SQL_LECTURER_EXISTS = "SELECT EXISTS(SELECT FROM users WHERE user_id = ?)";
     private static final String SQL_PUT_MARK = "INSERT INTO studentmarks (student_id, course_id, mark) VALUES(?,?,?)";
     private static final String SQL_GET_ALL_LECTURERS = "SELECT * FROM users WHERE role = 'LECTURER' " +
@@ -44,7 +44,7 @@ public class LecturerDaoImpl extends AbstractDao<Lecturer> implements LecturerDa
     @Override
     protected Object[] getCreateArgs(Lecturer lecturer) {
         return new Object[]{lecturer.getEmail(), lecturer.getPassword(), lecturer.getFirstName(),
-                lecturer.getLastName(), lecturer.getRank(), lecturer.getRole().name()};
+                lecturer.getLastName(), lecturer.getRank()};
     }
 
     @Override

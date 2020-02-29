@@ -1,18 +1,16 @@
 package com.foxminded.university.service.major;
 
 import com.foxminded.university.dao.CrudDao;
+import lombok.AllArgsConstructor;
 
 import java.util.List;
 
+@AllArgsConstructor
 public class PageService<T> {
 
     private static final int ELEMENTS_PER_PAGE = 5;
 
     private CrudDao<T> dao;
-
-    public PageService(CrudDao<T> dao) {
-        this.dao = dao;
-    }
 
     public int getMaxPage() {
         int numOfEntities = dao.getNumOfEntities();

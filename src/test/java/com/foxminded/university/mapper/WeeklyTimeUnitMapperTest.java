@@ -27,10 +27,10 @@ public class WeeklyTimeUnitMapperTest {
     @Test
     public void weeklyTimeUnitMapperShouldReturnWeeklyTimeUnit() throws SQLException {
         WeeklyTimeUnit expected = WeeklyTimeUnit.builder()
-                .withId(20)
-                .withStartTime(LocalTime.of(10, 15))
-                .withEndTime(LocalTime.of(12, 0))
-                .withDayOfWeek(DayOfWeek.MONDAY)
+                .id(20)
+                .startTime(LocalTime.of(10, 15))
+                .endTime(LocalTime.of(12, 0))
+                .dayOfWeek(DayOfWeek.MONDAY)
                 .build();
         when(resultSet.getRow()).thenReturn(1);
         when(resultSet.getInt("weekly_time_unit_id")).thenReturn(20);

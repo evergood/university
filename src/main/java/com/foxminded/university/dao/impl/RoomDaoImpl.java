@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
-
 @Repository("roomDao")
 public class RoomDaoImpl extends AbstractDao<Room> implements RoomDao {
 

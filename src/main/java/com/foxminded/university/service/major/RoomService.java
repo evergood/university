@@ -2,20 +2,17 @@ package com.foxminded.university.service.major;
 
 import com.foxminded.university.dao.RoomDao;
 import com.foxminded.university.domain.Room;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class RoomService {
 
     private final RoomDao roomDao;
-
-    @Autowired
-    public RoomService(RoomDao roomDao) {
-        this.roomDao = roomDao;
-    }
 
     public Optional<Room> getById(Integer id) {
         return roomDao.getById(id);

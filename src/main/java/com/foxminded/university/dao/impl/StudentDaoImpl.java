@@ -22,7 +22,7 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
             "UPDATE users SET password = ?, first_name = ?, last_name = ? " +
                     "WHERE email = ?";
     private static final String SQL_INSERT_STUDENT =
-            "INSERT INTO users(email, password, first_name, last_name, role) VALUES(?,?,?,?,?)";
+            "INSERT INTO users(email, password, first_name, last_name) VALUES(?,?,?,?)";
     private static final String SQL_STUDENT_EXISTS = "SELECT EXISTS (SELECT FROM users WHERE user_id = ?)";
     private static final String SQL_VIEW_MARKS =
             "SELECT course_name, mark\n" +
@@ -60,7 +60,7 @@ public class StudentDaoImpl extends AbstractDao<Student> implements StudentDao {
     @Override
     protected Object[] getCreateArgs(Student student) {
         return new Object[]{student.getEmail(), student.getPassword(),
-                student.getFirstName(), student.getLastName(), student.getRole().name()};
+                student.getFirstName(), student.getLastName()};
     }
 
     @Override

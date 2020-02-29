@@ -4,19 +4,18 @@ import com.foxminded.university.dao.UserDao;
 import com.foxminded.university.domain.Role;
 import com.foxminded.university.domain.User;
 import com.foxminded.university.service.Validator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service("user_service")
+@Slf4j
 public class UserService extends PageService<User> {
 
     private final UserDao userDao;
     private final Validator<User> validator;
-    private static final Logger LOGGER = LoggerFactory.getLogger(LecturerService.class);
 
     @Autowired
     public UserService(UserDao userDao, ValidatorImpl validator) {
@@ -79,7 +78,7 @@ public class UserService extends PageService<User> {
         userDao.getByEmail(targetUser.getEmail())
                 .map(User::getEmail)
                 .filter(email -> email.equals(targetUser.getEmail()))
-                .orElseThrow(()-> new RuntimeException("E-mail already exists"));
+                .orElseThrow(() -> new RuntimeException("E-mail already exists"));
         return userDao.update(targetUser);
     }
 }

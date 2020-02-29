@@ -23,8 +23,8 @@ public class StudentMapperTest {
     @Test
     public void studentMapperShouldReturnStudent() throws SQLException {
         Student expected = Student.builder()
-                .withFirstName("Garry")
-                .withLastName("Cooper")
+                .firstName("Garry")
+                .lastName("Cooper")
                 .build();
         when(resultSet.getRow()).thenReturn(1);
         when(resultSet.getString("first_name")).thenReturn("Garry");

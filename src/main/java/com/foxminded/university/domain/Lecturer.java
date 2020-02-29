@@ -1,52 +1,15 @@
 package com.foxminded.university.domain;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+@SuperBuilder
 public class Lecturer extends User {
 
     protected final String rank;
-
-    public String getRank() {
-        return rank;
-    }
-
-    @Override
-    public String toString() {
-        return "Lecturer{" +
-                "rank='" + rank + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", role=" + role +
-                '}';
-    }
-
-    protected Lecturer(LecturerBuilder userUserBuilder) {
-        super(userUserBuilder);
-        this.rank = userUserBuilder.rank;
-    }
-
-    public static LecturerBuilder builder() {
-        return new LecturerBuilder();
-    }
-
-    public static final class LecturerBuilder extends UserBuilder<LecturerBuilder> {
-
-        protected String rank;
-
-        public LecturerBuilder() {
-        }
-
-        public LecturerBuilder withRank(String rank) {
-            this.rank = rank;
-            return self();
-        }
-
-        public LecturerBuilder self() {
-            return this;
-        }
-
-        public Lecturer build() {
-            return new Lecturer(self());
-        }
-    }
 }

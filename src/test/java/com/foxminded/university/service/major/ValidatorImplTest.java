@@ -18,7 +18,7 @@ class ValidatorImplTest {
     void validatorShouldValidateUser() {
         String email = "123@gmail.com";
         String password = "14ffGFR#$%";
-        User user = User.builder().withEmail(email).withPassword(password).build();
+        User user = User.builder().email(email).password(password).build();
         assertDoesNotThrow(() -> validator.validate(user));
     }
 
@@ -26,7 +26,7 @@ class ValidatorImplTest {
     void validatorShouldThrowWhenEmailIsNotValid() {
         String email = "123gmail.com";
         String password = "14ffGFR#$%";
-        User user = User.builder().withEmail(email).withPassword(password).build();
+        User user = User.builder().email(email).password(password).build();
         Exception exception = assertThrows(RuntimeException.class, () -> validator.validate(user));
         String expected = "E-mail does not match the pattern";
         assertThat(expected, is(exception.getMessage()));
@@ -36,7 +36,7 @@ class ValidatorImplTest {
     void validatorShouldThrowWhenPasswordIsNotValid() {
         String email = "123@gmail.com";
         String password = "1111";
-        User user = User.builder().withEmail(email).withPassword(password).build();
+        User user = User.builder().email(email).password(password).build();
         Exception exception = assertThrows(RuntimeException.class, () -> validator.validate(user));
         String expected = "Password do not match the pattern";
         assertThat(expected, is(exception.getMessage()));

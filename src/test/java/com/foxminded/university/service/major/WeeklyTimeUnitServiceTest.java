@@ -27,7 +27,7 @@ class WeeklyTimeUnitServiceTest {
     @Test
     void studentServiceShouldReturnTimeUnitById() {
         Integer id = 10;
-        WeeklyTimeUnit expected = WeeklyTimeUnit.builder().withId(1).build();
+        WeeklyTimeUnit expected = WeeklyTimeUnit.builder().id(1).build();
         when(weeklyTimeUnitDao.getById(id)).thenReturn(Optional.of(expected));
 
         WeeklyTimeUnit actual = weeklyTimeUnitService.getById(id).get();
@@ -48,7 +48,7 @@ class WeeklyTimeUnitServiceTest {
     @Test
     void studentServiceShouldUpdateTimeUnit() {
         Integer id = 10;
-        WeeklyTimeUnit expected = WeeklyTimeUnit.builder().withId(1).build();
+        WeeklyTimeUnit expected = WeeklyTimeUnit.builder().id(1).build();
         when(weeklyTimeUnitDao.getById(id)).thenReturn(Optional.of(expected));
 
         weeklyTimeUnitService.update(expected);
@@ -60,7 +60,7 @@ class WeeklyTimeUnitServiceTest {
     @Test
     void studentServiceShouldInsertTimeUnit() {
         Integer id = 10;
-        WeeklyTimeUnit expected = WeeklyTimeUnit.builder().withId(1).build();
+        WeeklyTimeUnit expected = WeeklyTimeUnit.builder().id(1).build();
         when(weeklyTimeUnitDao.getById(id)).thenReturn(Optional.of(expected));
 
         weeklyTimeUnitService.create(expected);

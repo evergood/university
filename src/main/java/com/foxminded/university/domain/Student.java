@@ -1,50 +1,17 @@
 package com.foxminded.university.domain;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+
 import java.util.List;
 
+@Data
+@EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 public class Student extends User {
 
+    @Setter
     private List<Course> courses;
-
-    protected Student(StudentBuilder personPersonBuilder) {
-        super(personPersonBuilder);
-    }
-
-    public static Student.StudentBuilder builder() {
-        return new StudentBuilder();
-    }
-
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "courses=" + courses +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
-    }
-
-    public static final class StudentBuilder extends UserBuilder<StudentBuilder> {
-
-        private List<Course> courses;
-
-        private StudentBuilder() {
-        }
-
-        public StudentBuilder withCourses(List<Course> courses) {
-            this.courses = courses;
-            return self();
-        }
-
-        public StudentBuilder self() {
-            return this;
-        }
-
-        public Student build() {
-            return new Student(self());
-        }
-    }
 }
