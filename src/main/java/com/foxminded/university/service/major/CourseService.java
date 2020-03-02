@@ -3,6 +3,7 @@ package com.foxminded.university.service.major;
 import com.foxminded.university.dao.CourseDao;
 import com.foxminded.university.domain.Course;
 import com.foxminded.university.domain.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,14 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CourseService {
 
     private final CourseDao courseDao;
-
-    @Autowired
-    public CourseService(CourseDao courseDao) {
-        this.courseDao = courseDao;
-    }
 
     public Optional<Course> getById(Integer id) {
         return courseDao.getById(id);

@@ -4,23 +4,19 @@ import com.foxminded.university.dao.LecturerDao;
 import com.foxminded.university.domain.Lecturer;
 import com.foxminded.university.domain.Role;
 import com.foxminded.university.domain.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@Slf4j
 public class LecturerService {
 
     private final LecturerDao lecturerDao;
-    private static final Logger LOGGER = LoggerFactory.getLogger(LecturerService.class);
-
-    @Autowired
-    public LecturerService(LecturerDao lecturerDao) {
-        this.lecturerDao = lecturerDao;
-    }
 
     public Optional<Lecturer> getById(Integer id) {
         return lecturerDao.getById(id);

@@ -27,11 +27,10 @@ public class StudentDaoTest {
     void studentDaoShouldInsertStudent() {
         String email = "123@gmail.com";
         Student expected = Student.builder()
-                .withEmail(email)
-                .withPassword("23gdfg")
-                .withRole(Role.STUDENT)
-                .withFirstName("Garry")
-                .withLastName("Cooper")
+                .email(email)
+                .password("23gdfg")
+                .firstName("Garry")
+                .lastName("Cooper")
                 .build();
         studentDao.create(expected);
         Student actual = studentDao.getByEmail(email).get();
@@ -42,10 +41,10 @@ public class StudentDaoTest {
     void studentDaoShouldReturnStudentById() {
         Student actual = studentDao.getById(10).get();
         Student expected = Student.builder()
-                .withEmail("10@gmail.com")
-                .withPassword("123_456")
-                .withFirstName("Emma")
-                .withLastName("Lee")
+                .email("10@gmail.com")
+                .password("123_456")
+                .firstName("Emma")
+                .lastName("Lee")
                 .build();
         assertThat(expected, is(actual));
     }
@@ -54,10 +53,10 @@ public class StudentDaoTest {
     void studentDaoShouldUpdateStudent() {
         String email = "1@gmail.com";
         Student expected = Student.builder()
-                .withFirstName("Garry")
-                .withLastName("Cooper")
-                .withEmail(email)
-                .withPassword("23gdfg")
+                .firstName("Garry")
+                .lastName("Cooper")
+                .email(email)
+                .password("23gdfg")
                 .build();
         studentDao.update(expected);
         Student actual = studentDao.getByEmail(email).get();
@@ -77,20 +76,20 @@ public class StudentDaoTest {
         int pageNum = 1;
         int elemsPerPage = 5;
         List<Student> expected = new ArrayList<>();
-        expected.add(Student.builder().withFirstName("Mason")
-                .withLastName("Sullivan").withEmail("1@gmail.com").withPassword("123_456")
+        expected.add(Student.builder().firstName("Mason")
+                .lastName("Sullivan").email("1@gmail.com").password("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Harper")
-                .withLastName("Williams").withEmail("2@gmail.com").withPassword("123_456")
+        expected.add(Student.builder().firstName("Harper")
+                .lastName("Williams").email("2@gmail.com").password("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("James")
-                .withLastName("Gregory").withEmail("3@gmail.com").withPassword("123_456")
+        expected.add(Student.builder().firstName("James")
+                .lastName("Gregory").email("3@gmail.com").password("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Olivia")
-                .withLastName("Gregory").withEmail("4@gmail.com").withPassword("123_456")
+        expected.add(Student.builder().firstName("Olivia")
+                .lastName("Gregory").email("4@gmail.com").password("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Olivia")
-                .withLastName("Smith").withEmail("5@gmail.com").withPassword("123_456")
+        expected.add(Student.builder().firstName("Olivia")
+                .lastName("Smith").email("5@gmail.com").password("123_456")
                 .build());
         List<Student> actual = studentDao.getAllEntities(pageNum, elemsPerPage);
         assertThat(expected, is(actual));

@@ -101,20 +101,20 @@ class StudentServiceTest {
         String pageNum = "1";
         int elemsPerPage = 5;
         List<Student> expected = new ArrayList<>();
-        expected.add(Student.builder().withFirstName("Mason")
-                .withLastName("Sullivan").withEmail("1@gmail.com").withPassword("123_456")
+        expected.add(Student.builder().firstName("Mason")
+                .lastName("Sullivan").email("1@gmail.com").password("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Harper")
-                .withLastName("Williams").withEmail("2@gmail.com").withPassword("123_456")
+        expected.add(Student.builder().firstName("Harper")
+                .lastName("Williams").email("2@gmail.com").password("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("James")
-                .withLastName("Gregory").withEmail("3@gmail.com").withPassword("123_456")
+        expected.add(Student.builder().firstName("James")
+                .lastName("Gregory").email("3@gmail.com").password("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Olivia")
-                .withLastName("Gregory").withEmail("4@gmail.com").withPassword("123_456")
+        expected.add(Student.builder().firstName("Olivia")
+                .lastName("Gregory").email("4@gmail.com").password("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Olivia")
-                .withLastName("Smith").withEmail("5@gmail.com").withPassword("123_456")
+        expected.add(Student.builder().firstName("Olivia")
+                .lastName("Smith").email("5@gmail.com").password("123_456")
                 .build());
         when(studentDao.getAllEntities(Integer.parseInt(pageNum), elemsPerPage))
                 .thenReturn(expected);
@@ -129,20 +129,20 @@ class StudentServiceTest {
         String pageNum = "10";
         int elemsPerPage = 5;
         List<Student> expected = new ArrayList<>();
-        expected.add(Student.builder().withFirstName("Mason")
-                .withLastName("Sullivan").withEmail("1@gmail.com").withPassword("123_456")
+        expected.add(Student.builder().firstName("Mason")
+                .lastName("Sullivan").email("1@gmail.com").password("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Harper")
-                .withLastName("Williams").withEmail("2@gmail.com").withPassword("123_456")
+        expected.add(Student.builder().firstName("Harper")
+                .lastName("Williams").email("2@gmail.com").password("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("James")
-                .withLastName("Gregory").withEmail("3@gmail.com").withPassword("123_456")
+        expected.add(Student.builder().firstName("James")
+                .lastName("Gregory").email("3@gmail.com").password("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Olivia")
-                .withLastName("Gregory").withEmail("4@gmail.com").withPassword("123_456")
+        expected.add(Student.builder().firstName("Olivia")
+                .lastName("Gregory").email("4@gmail.com").password("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Olivia")
-                .withLastName("Smith").withEmail("5@gmail.com").withPassword("123_456")
+        expected.add(Student.builder().firstName("Olivia")
+                .lastName("Smith").email("5@gmail.com").password("123_456")
                 .build());
         when(studentDao.getAllEntities(1, elemsPerPage)).thenReturn(expected);
 
@@ -156,20 +156,20 @@ class StudentServiceTest {
         String pageNum = "-10";
         int elemsPerPage = 5;
         List<Student> expected = new ArrayList<>();
-        expected.add(Student.builder().withFirstName("Mason")
-                .withLastName("Sullivan").withEmail("1@gmail.com").withPassword("123_456")
+        expected.add(Student.builder().firstName("Mason")
+                .lastName("Sullivan").email("1@gmail.com").password("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Harper")
-                .withLastName("Williams").withEmail("2@gmail.com").withPassword("123_456")
+        expected.add(Student.builder().firstName("Harper")
+                .lastName("Williams").email("2@gmail.com").password("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("James")
-                .withLastName("Gregory").withEmail("3@gmail.com").withPassword("123_456")
+        expected.add(Student.builder().firstName("James")
+                .lastName("Gregory").email("3@gmail.com").password("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Olivia")
-                .withLastName("Gregory").withEmail("4@gmail.com").withPassword("123_456")
+        expected.add(Student.builder().firstName("Olivia")
+                .lastName("Gregory").email("4@gmail.com").password("123_456")
                 .build());
-        expected.add(Student.builder().withFirstName("Olivia")
-                .withLastName("Smith").withEmail("5@gmail.com").withPassword("123_456")
+        expected.add(Student.builder().firstName("Olivia")
+                .lastName("Smith").email("5@gmail.com").password("123_456")
                 .build());
         when(studentDao.getAllEntities(1, elemsPerPage)).thenReturn(expected);
 

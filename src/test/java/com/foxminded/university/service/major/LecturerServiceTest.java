@@ -71,7 +71,7 @@ class LecturerServiceTest {
 
     @Test
     void lecturerServiceShouldPutMark() {
-        User currentUser = User.builder().withRole(Role.LECTURER).build();
+        User currentUser = User.builder().role(Role.LECTURER).build();
         Integer id = 10;
         Integer courseId = 1;
         Character mark = 'A';

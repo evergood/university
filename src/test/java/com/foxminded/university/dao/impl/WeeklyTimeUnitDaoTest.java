@@ -26,10 +26,10 @@ public class WeeklyTimeUnitDaoTest {
     @Test
     void weeklyTimeUnitDaoShouldInsertWeeklyTimeUnit() {
         WeeklyTimeUnit expected = WeeklyTimeUnit.builder()
-                .withId(20)
-                .withStartTime(LocalTime.of(10, 15))
-                .withEndTime(LocalTime.of(12, 0))
-                .withDayOfWeek(DayOfWeek.MONDAY)
+                .id(20)
+                .startTime(LocalTime.of(10, 15))
+                .endTime(LocalTime.of(12, 0))
+                .dayOfWeek(DayOfWeek.MONDAY)
                 .build();
         weeklyTimeUnitDao.create(expected);
         WeeklyTimeUnit actual = weeklyTimeUnitDao.getById(20).get();
@@ -40,10 +40,10 @@ public class WeeklyTimeUnitDaoTest {
     void weeklyTimeUnitDaoShouldReturnWeeklyTimeUnitById() {
         WeeklyTimeUnit actual = weeklyTimeUnitDao.getById(10).get();
         WeeklyTimeUnit expected = WeeklyTimeUnit.builder()
-                .withStartTime(LocalTime.of(10, 0))
-                .withEndTime(LocalTime.of(12, 0))
-                .withDayOfWeek(DayOfWeek.THURSDAY)
-                .withId(10)
+                .startTime(LocalTime.of(10, 0))
+                .endTime(LocalTime.of(12, 0))
+                .dayOfWeek(DayOfWeek.THURSDAY)
+                .id(10)
                 .build();
         assertThat(expected, is(actual));
     }
@@ -51,10 +51,10 @@ public class WeeklyTimeUnitDaoTest {
     @Test
     void weeklyTimeUnitDaoShouldUpdateWeeklyTimeUnit() {
         WeeklyTimeUnit expected = WeeklyTimeUnit.builder()
-                .withId(15)
-                .withStartTime(LocalTime.of(10, 15))
-                .withEndTime(LocalTime.of(12, 0))
-                .withDayOfWeek(DayOfWeek.MONDAY)
+                .id(15)
+                .startTime(LocalTime.of(10, 15))
+                .endTime(LocalTime.of(12, 0))
+                .dayOfWeek(DayOfWeek.MONDAY)
                 .build();
         weeklyTimeUnitDao.update(expected);
         WeeklyTimeUnit actual = weeklyTimeUnitDao.getById(15).get();

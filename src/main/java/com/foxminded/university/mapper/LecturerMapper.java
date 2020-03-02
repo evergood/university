@@ -14,11 +14,11 @@ public class LecturerMapper implements RowMapper<Lecturer> {
     public Lecturer mapRow(ResultSet resultSet, int i) throws SQLException {
         return resultSet.getRow() == 0 ? null :
                 Lecturer.builder()
-                        .withEmail(resultSet.getString("email"))
-                        .withPassword(resultSet.getString("password"))
-                        .withFirstName(resultSet.getString("first_name"))
-                        .withLastName(resultSet.getString("last_name"))
-                        .withRank(resultSet.getString("rank"))
+                        .email(resultSet.getString("email"))
+                        .password(resultSet.getString("password"))
+                        .firstName(resultSet.getString("first_name"))
+                        .lastName(resultSet.getString("last_name"))
+                        .rank(resultSet.getString("rank"))
                         .build();
     }
 }

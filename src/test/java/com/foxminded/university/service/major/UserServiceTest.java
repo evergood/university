@@ -39,7 +39,7 @@ class UserServiceTest {
     @Test
     void userServiceShouldReturnUSerByEmail() {
         String email = "123@gmail.com";
-        User expected = User.builder().withEmail(email).build();
+        User expected = User.builder().email(email).build();
         when(userDao.getByEmail(email)).thenReturn(Optional.of(expected));
 
         User actual = userService.getByEmail(email).get();
@@ -85,7 +85,7 @@ class UserServiceTest {
     void userServiceShouldSignIn() {
         String email = "123@gmail.com";
         String password = "124dgdg%##";
-        User user = User.builder().withEmail(email).withPassword(password).build();
+        User user = User.builder().email(email).password(password).build();
         when(userDao.getByEmail(email)).thenReturn(Optional.ofNullable(user));
 
         boolean actual = userService.signIn(email, password);
@@ -97,7 +97,7 @@ class UserServiceTest {
     void userServiceShouldSignUp() {
         String email = "500@gmail.com";
         String password = "1464FGGG24@@dgdg";
-        User expected = User.builder().withEmail(email).withPassword(password).build();
+        User expected = User.builder().email(email).password(password).build();
         when(userDao.getByEmail(email)).thenReturn(Optional.empty()).
                 thenReturn(Optional.ofNullable(expected));
 
@@ -111,8 +111,8 @@ class UserServiceTest {
         Integer id = 10;
         String email = "123@gmail.com";
         String password = "1464FGGG24@@dgdg";
-        User currentUser = User.builder().withRole(Role.ADMIN).build();
-        User expected = User.builder().withEmail(email).withPassword(password).build();
+        User currentUser = User.builder().role(Role.ADMIN).build();
+        User expected = User.builder().email(email).password(password).build();
         when(userDao.getByEmail(email)).thenReturn(Optional.of(expected));
         when(userDao.update(expected)).thenReturn(true);
 

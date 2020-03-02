@@ -2,20 +2,17 @@ package com.foxminded.university.service.major;
 
 import com.foxminded.university.dao.WeeklyTimeUnitDao;
 import com.foxminded.university.domain.WeeklyTimeUnit;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class WeeklyTimeUnitService {
 
     private final WeeklyTimeUnitDao weeklyTimeUnitDao;
-
-    @Autowired
-    public WeeklyTimeUnitService(WeeklyTimeUnitDao weeklyTimeUnitDao) {
-        this.weeklyTimeUnitDao = weeklyTimeUnitDao;
-    }
 
     public Optional<WeeklyTimeUnit> getById(Integer id) {
         return weeklyTimeUnitDao.getById(id);

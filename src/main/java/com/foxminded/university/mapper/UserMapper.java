@@ -19,11 +19,11 @@ public class UserMapper implements RowMapper<User> {
     public User mapRow(ResultSet resultSet, int i) throws SQLException {
         LOGGER.debug("Start mapping");
         return resultSet.getRow() == 0 ? null : User.builder()
-                .withEmail(resultSet.getString("email"))
-                .withPassword(resultSet.getString("password"))
-                .withFirstName(resultSet.getString("first_name"))
-                .withLastName(resultSet.getString("last_name"))
-                .withRole(Role.valueOf(resultSet.getString("role")))
+                .email(resultSet.getString("email"))
+                .password(resultSet.getString("password"))
+                .firstName(resultSet.getString("first_name"))
+                .lastName(resultSet.getString("last_name"))
+                .role(Role.valueOf(resultSet.getString("role")))
                 .build();
     }
 }

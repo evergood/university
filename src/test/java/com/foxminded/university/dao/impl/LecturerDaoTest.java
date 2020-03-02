@@ -2,7 +2,6 @@ package com.foxminded.university.dao.impl;
 
 import com.foxminded.university.dao.LecturerDao;
 import com.foxminded.university.domain.Lecturer;
-import com.foxminded.university.domain.Role;
 import config.ConfigTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +24,11 @@ public class LecturerDaoTest {
     public void lecturerDaoShouldInsertLecturer() {
         String email = "100@gmail.com";
         Lecturer expected = Lecturer.builder()
-                .withEmail(email)
-                .withPassword("325dg#%")
-                .withRole(Role.LECTURER)
-                .withFirstName("Garry")
-                .withLastName("Cooper")
-                .withRank("Professor")
+                .email(email)
+                .password("325dg#%")
+                .firstName("Garry")
+                .lastName("Cooper")
+                .rank("Professor")
                 .build();
         lecturerDao.create(expected);
         Lecturer actual = lecturerDao.getByEmail(email).get();
@@ -41,11 +39,11 @@ public class LecturerDaoTest {
     public void lecturerDaoShouldReturnLecturerById() {
         Lecturer actual = lecturerDao.getById(20).get();
         Lecturer expected = Lecturer.builder()
-                .withEmail("20@gmail.com")
-                .withPassword("123_456")
-                .withFirstName("Emma")
-                .withLastName("Lee")
-                .withRank("Assistant Professor")
+                .email("20@gmail.com")
+                .password("123_456")
+                .firstName("Emma")
+                .lastName("Lee")
+                .rank("Assistant Professor")
                 .build();
         assertThat(expected, is(actual));
     }
@@ -54,11 +52,11 @@ public class LecturerDaoTest {
     public void lecturerDaoShouldUpdateLecturer() {
         String email = "20@gmail.com";
         Lecturer expected = Lecturer.builder()
-                .withEmail(email)
-                .withPassword("325dg#%")
-                .withFirstName("Garry")
-                .withLastName("Cooper")
-                .withRank("Assistant Professor")
+                .email(email)
+                .password("325dg#%")
+                .firstName("Garry")
+                .lastName("Cooper")
+                .rank("Assistant Professor")
                 .build();
         lecturerDao.update(expected);
         Lecturer actual = lecturerDao.getByEmail(email).get();

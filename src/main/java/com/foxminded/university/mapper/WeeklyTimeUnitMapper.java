@@ -14,10 +14,10 @@ public class WeeklyTimeUnitMapper implements RowMapper<WeeklyTimeUnit> {
     public WeeklyTimeUnit mapRow(ResultSet resultSet, int i) throws SQLException {
         return resultSet.getRow() == 0 ? null :
                 WeeklyTimeUnit.builder()
-                        .withId(resultSet.getInt("weekly_time_unit_id"))
-                        .withDayOfWeek(DayOfWeek.valueOf(resultSet.getString("weekday")))
-                        .withStartTime(resultSet.getTime("starttime").toLocalTime())
-                        .withEndTime(resultSet.getTime("endtime").toLocalTime())
+                        .id(resultSet.getInt("weekly_time_unit_id"))
+                        .dayOfWeek(DayOfWeek.valueOf(resultSet.getString("weekday")))
+                        .startTime(resultSet.getTime("starttime").toLocalTime())
+                        .endTime(resultSet.getTime("endtime").toLocalTime())
                         .build();
     }
 }
