@@ -12,26 +12,26 @@ import java.util.Objects;
 @Data
 public class UserForm {
 
-    @NotNull(message = "Can't be empty")
-    @Size(min = 2, max = 30, message = "Must be more than 2 and less than 30 symbols")
+    @NotNull(message = "{not.null}")
+    @Size(min = 2, max = 30, message = "{length.error}")
     private String firstName;
 
-    @NotNull(message = "Can't be empty")
-    @Size(min = 2, max = 30, message = "Must be more than 2 and less than 30 symbols")
+    @NotNull(message = "{not.null}")
+    @Size(min = 2, max = 30, message = "{length.error}")
     private String lastName;
 
-    @Email(message = "Enter valid e-mail")
+    @Email(message = "{email.error}")
     private String email;
 
     @Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})",
-            message = "Enter valid password")
+            message = "{password.error}")
     private String password;
 
     private String passwordRepeat;
 
     private boolean passwordsEqual;
 
-    @AssertTrue(message = "Passwords should match")
+    @AssertTrue(message = "{passwords.error}")
     public boolean isPasswordsEqual() {
         return password == null && passwordRepeat == null || Objects.equals(password, passwordRepeat);
     }

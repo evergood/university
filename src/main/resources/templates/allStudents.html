@@ -1,30 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>All Students</title>
+    <title th:text="#{students.title}"></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-<table class="table table-hover" xmlns:th="http://www.w3.org/1999/xhtml">
+<table class="table table-hover">
     <thead>
     <tr>
-        <th> First name</th>
-        <th> Last name</th>
-        <th> Email</th>
-        <th> Password</th>
+        <th th:text="#{first.name}"></th>
+        <th th:text="#{last.name}"></th>
+        <th th:text="#{email}"></th>
+        <th th:text="#{password}"></th>
     </tr>
     </thead>
     <tbody>
-    <tr th:if="${students.empty}">
-        <td colspan="4"> No students has been found</td>
+    <tr th:if="${students.isEmpty()}">
+        <td colspan="4" th:text="#{students.empty}"></td>
     </tr>
     <tr th:each="student : ${students}">
-        <td><span th:text="${student.FirstName}"> First name </span></td>
-        <td><span th:text="${student.LastName}"> Last name </span></td>
-        <td><span th:text="${student.Email}"> Email </span></td>
-        <td><span th:text="${student.Password}"> Password </span></td>
+        <td><span th:text="${student.firstName}"></span></td>
+        <td><span th:text="${student.lastName}"></span></td>
+        <td><span th:text="${student.email}"></span></td>
+        <td><span th:text="${student.password}"></span></td>
     </tr>
     </tbody>
 </table>
