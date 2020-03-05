@@ -55,6 +55,27 @@
         <input class="btn-primary" type="submit" value="Submit"/> <input class="btn-primary" type="reset"
                                                                          value="Reset"/>
     </form>
+    <p></p>
+    <p></p>
+    <p></p>
+    <span th:text="#{lang.change}"></span>:
+    <select id="locales" >
+        <option value=""></option>
+        <option value="en" th:text="#{lang.eng}"></option>
+        <option value="ru" th:text="#{lang.ru}"></option>
+    </select>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#locales").change(function () {
+                var selectedOption = $('#locales').val();
+                if (selectedOption != ''){
+                    window.location.replace('register?lang=' + selectedOption);
+                }
+            });
+        });
+    </script>
 </div>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
