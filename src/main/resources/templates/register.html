@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
-<head>
+<header>
     <title th:text="#{input.form.title}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-</head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</header>
 <body>
 <h1 th:text="#{input.form}"></h1>
 <div class="col-md-6">
@@ -14,7 +15,7 @@
             <div class="form-group col">
                 <label th:text="#{first.name}"></label>
                 <input type="text" th:unless="${#fields.hasErrors('firstName')}" class="form-control"
-                      th:placeholder="#{first.name}" th:field="*{firstName}">
+                       th:placeholder="#{first.name}" th:field="*{firstName}">
                 <input type="text" th:if="${#fields.hasErrors('firstName')}" class="form-control alert-danger"
                        th:placeholder="#{first.name}" th:field="*{firstName}">
                 <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
@@ -58,25 +59,16 @@
     <p></p>
     <p></p>
     <p></p>
-    <span th:text="#{lang.change}"></span>:
-    <select id="locales" >
+    <span th:text="#{lang.change}"></span>
+    <select id="locales">
         <option value=""></option>
         <option value="en" th:text="#{lang.eng}"></option>
         <option value="ru" th:text="#{lang.ru}"></option>
+
     </select>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $("#locales").change(function () {
-                var selectedOption = $('#locales').val();
-                if (selectedOption != ''){
-                    window.location.replace('register?lang=' + selectedOption);
-                }
-            });
-        });
-    </script>
+
 </div>
+<script type="text/javascript" th:src="langSelect.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
