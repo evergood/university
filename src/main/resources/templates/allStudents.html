@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
-<head>
+<header>
     <meta charset="UTF-8">
     <title th:text="#{students.title}"></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-</head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</header>
 <body>
 <table class="table table-hover">
     <thead>
@@ -44,31 +45,7 @@
     <option value="en" th:text="#{lang.eng}"></option>
     <option value="ru" th:text="#{lang.ru}"></option>
 </select>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
-</script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#locales").change(function () {
-            var selectedOption = $('#locales').val();
-            var queryString = window.location.search;
-            var urlParams = new URLSearchParams(queryString);
-            if (selectedOption !== '') {
-                var newUrl;
-                if (urlParams.has('lang')) {
-                    var reExp = /lang=\w+/;
-                    newUrl = queryString.replace(reExp, "lang=" + selectedOption);
-                } else {
-                    if (queryString.includes('?')) {
-                        newUrl = queryString.concat("&lang=" + selectedOption);
-                    } else {
-                        newUrl = queryString.concat("?lang=" + selectedOption);
-                    }
-                }
-                window.location.replace(newUrl);
-            }
-        });
-    });
-</script>
+<script type="text/javascript" th:src="langSelect.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
