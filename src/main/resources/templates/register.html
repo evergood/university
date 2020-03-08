@@ -1,61 +1,72 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
-<head>
-    <title>Registration form</title>
+<header>
+    <title th:text="#{register.title}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-</head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</header>
 <body>
-<h1>Input user data</h1>
+<h1 th:text="#{register.label}"></h1>
 <div class="col-md-6">
     <form action="#" th:action="@{/register}" th:object="${userForm}" method="post">
         <div class="form-row">
             <div class="form-group col">
-                <label>First Name</label>
+                <label th:text="#{first.name}"></label>
                 <input type="text" th:unless="${#fields.hasErrors('firstName')}" class="form-control"
-                       placeholder="First name" th:field="*{firstName}">
+                       th:placeholder="#{first.name}" th:field="*{firstName}">
                 <input type="text" th:if="${#fields.hasErrors('firstName')}" class="form-control alert-danger"
-                       placeholder="First name" th:field="*{firstName}">
+                       th:placeholder="#{first.name}" th:field="*{firstName}">
                 <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
             </div>
             <div class="form-group col">
-                <label>Last Name</label>
+                <label th:text="#{last.name}"></label>
                 <input type="text" th:unless="${#fields.hasErrors('lastName')}" class="form-control"
-                       placeholder="Last name" th:field="*{lastName}">
+                       th:placeholder="#{last.name}" th:field="*{lastName}">
                 <input type="text" th:if="${#fields.hasErrors('lastName')}" class="form-control alert-danger"
-                       placeholder="Last name" th:field="*{lastName}">
+                       th:placeholder="#{last.name}" th:field="*{lastName}">
                 <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
             </div>
         </div>
         <div class="form-group">
-            <label>E-mail</label>
-            <input type="text" th:unless="${#fields.hasErrors('email')}" class="form-control" placeholder="E-mail"
-                   th:field="*{email}">
+            <label th:text="#{email}"></label>
+            <input type="text" th:unless="${#fields.hasErrors('email')}" class="form-control"
+                   th:placeholder="#{email}" th:field="*{email}">
             <input type="text" th:if="${#fields.hasErrors('email')}" class="form-control alert-danger"
-                   placeholder="E-mail" th:field="*{email}">
+                   th:placeholder="#{email}" th:field="*{email}">
             <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
         </div>
         <div class="form-group">
-            <label>Password</label>
+            <label th:text="#{password}"></label>
             <input type="text" th:unless="${#fields.hasErrors('passwordsEqual')}" class="form-control"
-                   placeholder="Password" th:field="*{password}">
+                   th:placeholder="#{password}" th:field="*{password}">
             <input type="text" th:if="${#fields.hasErrors('passwordsEqual')}" class="form-control alert-danger"
-                   placeholder="Password" th:field="*{password}">
+                   th:placeholder="#{password}" th:field="*{password}">
             <span th:if="${#fields.hasErrors('passwordsEqual')}" th:errors="*{password}"></span>
         </div>
         <div class="form-group">
-            <label> Repeat password</label>
+            <label th:text="#{password.repeat}"></label>
             <input type="text" th:unless="${#fields.hasErrors('passwordsEqual')}" class="form-control"
-                   placeholder="Password" th:field="*{passwordRepeat}">
+                   th:placeholder="#{password.repeat}" th:field="*{passwordRepeat}">
             <input type="text" th:if="${#fields.hasErrors('passwordsEqual')}" class="form-control alert-danger"
-                   placeholder="Password" th:field="*{passwordRepeat}">
+                   th:placeholder="#{password.repeat}" th:field="*{passwordRepeat}">
             <span class="error" th:if="${#fields.hasErrors('passwordsEqual')}" th:errors="*{passwordsEqual}"></span>
         </div>
         <input class="btn-primary" type="submit" value="Submit"/> <input class="btn-primary" type="reset"
                                                                          value="Reset"/>
     </form>
+    <p></p>
+    <p></p>
+    <p></p>
+    <span th:text="#{lang.change}"></span>
+    <select id="locales">
+        <option value=""></option>
+        <option value="en" th:text="#{lang.eng}"></option>
+        <option value="ru" th:text="#{lang.ru}"></option>
+    </select>
 </div>
+<script type="text/javascript" th:src="langSelect.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
