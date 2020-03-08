@@ -2,13 +2,13 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="#{welcome}"></title>
+    <title th:text="#{welcome.title}"></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
-<div class="badge-info"><h1 th:text="#{welcome}"></h1></div>
+<div class="badge-info"><h1 th:text="#{welcome.title}"></h1></div>
 <select id="locales">
     <option value=""></option>
     <option value="en" th:text="#{lang.eng}"></option>

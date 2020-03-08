@@ -9,11 +9,8 @@ $(document).ready(function () {
                 var reExp = /lang=\w+/;
                 newUrl = queryString.replace(reExp, "lang=" + selectedOption);
             } else {
-                if (queryString.includes('?')) {
-                    newUrl = queryString.concat("&lang=" + selectedOption);
-                } else {
-                    newUrl = queryString.concat("?lang=" + selectedOption);
-                }
+                newUrl = queryString.includes('?') ? queryString.concat("&lang=" + selectedOption) :
+                    queryString.concat("?lang=" + selectedOption);
             }
             window.location.replace(newUrl);
         }
