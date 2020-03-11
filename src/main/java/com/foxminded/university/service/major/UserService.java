@@ -58,7 +58,7 @@ public class UserService extends PageService<User> {
         }
         return userDao.getByEmail(email)
                 .map(User::getPassword)
-                .filter(pass -> pass.equals(password))
+                .filter(pass -> passwordEncoder.matches(pass, password))
                 .isPresent();
     }
 

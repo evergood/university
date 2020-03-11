@@ -8,12 +8,17 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
+
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -24,6 +29,9 @@ class UserServiceTest {
     private ValidatorImpl validator;
     @InjectMocks
     private UserService userService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Test
     void userServiceShouldReturnUSerById() {
@@ -85,10 +93,10 @@ class UserServiceTest {
     void userServiceShouldSignIn() {
         String email = "123@gmail.com";
         String password = "124dgdg%##";
-        User user = User.builder().email(email).password(password).build();
+        User user = User.builder().email(email).password(passwordEncoder.encode(password)).build();
         when(userDao.getByEmail(email)).thenReturn(Optional.ofNullable(user));
 
-        boolean actual = userService.signIn(email, password);
+        boolean actual = userService.signIn(email, passwordEncoder.encode(password));
 
         assertThat(actual, is(true));
     }
@@ -97,7 +105,7 @@ class UserServiceTest {
     void userServiceShouldSignUp() {
         String email = "500@gmail.com";
         String password = "1464FGGG24@@dgdg";
-        User expected = User.builder().email(email).password(password).build();
+        User expected = User.builder().email(email).password(passwordEncoder.encode(password)).build();
         when(userDao.getByEmail(email)).thenReturn(Optional.empty()).
                 thenReturn(Optional.ofNullable(expected));
 
@@ -112,7 +120,7 @@ class UserServiceTest {
         String email = "123@gmail.com";
         String password = "1464FGGG24@@dgdg";
         User currentUser = User.builder().role(Role.ADMIN).build();
-        User expected = User.builder().email(email).password(password).build();
+        User expected = User.builder().email(email).password(passwordEncoder.encode(password)).build();
         when(userDao.getByEmail(email)).thenReturn(Optional.of(expected));
         when(userDao.update(expected)).thenReturn(true);
 
