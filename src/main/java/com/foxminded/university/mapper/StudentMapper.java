@@ -1,8 +1,6 @@
 package com.foxminded.university.mapper;
 
-import com.foxminded.university.dao.StudentDao;
 import com.foxminded.university.domain.Student;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 

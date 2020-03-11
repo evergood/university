@@ -56,9 +56,10 @@ public class UserService extends PageService<User> {
             LOGGER.error("Email or password is null");
             throw new RuntimeException("Email or password is null");
         }
+        LOGGER.debug("Returning " + String.valueOf(userDao.getByEmail(email).toString()));
         return userDao.getByEmail(email)
                 .map(User::getPassword)
-                .filter(pass -> passwordEncoder.matches(pass, password))
+                .filter(pass -> passwordEncoder.matches(password, pass))
                 .isPresent();
     }
 
@@ -69,13 +70,7 @@ public class UserService extends PageService<User> {
             LOGGER.error("User already exists");
             throw new RuntimeException("User already exists");
         }
-        User encryptedUser = User.builder()
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .email(user.getEmail())
-                .password(passwordEncoder.encode(user.getPassword()))
-                .build();
-        userDao.create(encryptedUser);
+        userDao.create(user);
         return userDao.getByEmail(user.getEmail()).get();
     }
 

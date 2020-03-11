@@ -19,7 +19,6 @@ import javax.sql.DataSource;
 
 @SpringBootConfiguration
 @EnableAutoConfiguration
-@EnableWebSecurity
 @ComponentScan({"com.foxminded.university.dao", "com.foxminded.university.mapper",
         "com.foxminded.university.service", "com.foxminded.university.controller"})
 public class ConfigTest {

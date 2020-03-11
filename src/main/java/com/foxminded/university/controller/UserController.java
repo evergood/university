@@ -39,7 +39,7 @@ public class UserController {
                 .firstName(userForm.getFirstName())
                 .lastName(userForm.getLastName())
                 .email(userForm.getEmail())
-                .password(userForm.getPassword())
+                .password(passwordEncoder.encode(userForm.getPassword()))
                 .build();
         userService.signUp(user);
         return "signUpResult";
