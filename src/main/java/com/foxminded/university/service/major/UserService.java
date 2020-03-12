@@ -6,6 +6,7 @@ import com.foxminded.university.domain.User;
 import com.foxminded.university.service.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,12 +17,14 @@ public class UserService extends PageService<User> {
 
     private final UserDao userDao;
     private final Validator<User> validator;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserDao userDao, ValidatorImpl validator) {
+    public UserService(UserDao userDao, ValidatorImpl validator, PasswordEncoder passwordEncoder) {
         super(userDao);
         this.userDao = userDao;
         this.validator = validator;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Optional<User> getById(Integer userId) {
@@ -55,7 +58,7 @@ public class UserService extends PageService<User> {
         }
         return userDao.getByEmail(email)
                 .map(User::getPassword)
-                .filter(pass -> pass.equals(password))
+                .filter(pass -> passwordEncoder.matches(password, pass))
                 .isPresent();
     }
 
@@ -66,7 +69,13 @@ public class UserService extends PageService<User> {
             LOGGER.error("User already exists");
             throw new RuntimeException("User already exists");
         }
-        userDao.create(user);
+        User userEncrypted = User.builder()
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .password(passwordEncoder.encode(user.getPassword()))
+                .build();
+        userDao.create(userEncrypted);
         return userDao.getByEmail(user.getEmail()).get();
     }
 

@@ -31,7 +31,7 @@ public class ValidatorImpl implements Validator<User> {
     }
 
     private static void validatePassword(User user) {
-        validateString(PASSWORD_PATTERN, user, User::getPassword, "Password do not match the pattern");
+        validateString(PASSWORD_PATTERN, user, User::getPassword, "Password does not match the pattern");
     }
 
     private static void validateString(Pattern pattern, User user, Function<User, String> function,
