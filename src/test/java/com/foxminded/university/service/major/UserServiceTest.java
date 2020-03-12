@@ -3,23 +3,13 @@ package com.foxminded.university.service.major;
 import com.foxminded.university.dao.UserDao;
 import com.foxminded.university.domain.Role;
 import com.foxminded.university.domain.User;
-import config.ConfigTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 
 import java.util.Optional;
 
@@ -31,10 +21,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 
-    /*@Autowired
-    private static PasswordEncoder passwordEncoder;*/
-
-    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    @Mock
+    private static PasswordEncoder passwordEncoder;
     @Mock
     private UserDao userDao;
     @Mock
@@ -100,19 +88,13 @@ class UserServiceTest {
 
     @Test
     void userServiceShouldSignIn() {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String email = "123@gmail.com";
         String password = "124dgdg%##";
+        when(passwordEncoder.encode(password)).thenReturn("####");
         User user = User.builder().email(email).password(passwordEncoder.encode(password)).build();
         when(userDao.getByEmail(email)).thenReturn(Optional.of(user));
+        when(passwordEncoder.matches(password, user.getPassword())).thenReturn(true);
 
-        log.debug(userDao.getByEmail(email).toString());
-        log.debug(String.valueOf(passwordEncoder.matches(password, user.getPassword())));
-        log.debug(String.valueOf(userDao.getByEmail(email)
-                .map(User::getPassword)
-                .filter(pass -> passwordEncoder.matches(password, pass))
-                .isPresent()));
-        //log.debug(String.valueOf(userService.signIn(email, password)));
         boolean actual = userService.signIn(email, password);
 
         assertThat(actual, is(true));
@@ -122,7 +104,8 @@ class UserServiceTest {
     void userServiceShouldSignUp() {
         String email = "500@gmail.com";
         String password = "1464FGGG24@@dgdg";
-        User expected = User.builder().email(email).password(password).build();
+        when(passwordEncoder.encode(password)).thenReturn("####");
+        User expected = User.builder().email(email).password(passwordEncoder.encode(password)).build();
         when(userDao.getByEmail(email)).thenReturn(Optional.empty()).
                 thenReturn(Optional.ofNullable(expected));
 
